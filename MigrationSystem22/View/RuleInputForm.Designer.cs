@@ -46,6 +46,9 @@
             listViewConditions = new ListView();
             buttonRemoveCondition = new Button();
             buttonSaveRule = new Button();
+            buttonNewGroup = new Button();
+            labelCurrentGroup = new Label();
+            comboBoxGroupSelector = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)numericDeadlineDays).BeginInit();
             SuspendLayout();
             // 
@@ -181,7 +184,7 @@
             // 
             // listViewConditions
             // 
-            listViewConditions.Location = new Point(720, 324);
+            listViewConditions.Location = new Point(590, 232);
             listViewConditions.Name = "listViewConditions";
             listViewConditions.Size = new Size(151, 121);
             listViewConditions.TabIndex = 15;
@@ -207,11 +210,44 @@
             buttonSaveRule.UseVisualStyleBackColor = true;
             buttonSaveRule.Click += buttonSaveRule_Click;
             // 
+            // buttonNewGroup
+            // 
+            buttonNewGroup.Location = new Point(906, 178);
+            buttonNewGroup.Name = "buttonNewGroup";
+            buttonNewGroup.Size = new Size(113, 62);
+            buttonNewGroup.TabIndex = 18;
+            buttonNewGroup.Text = "Новая группа условий";
+            buttonNewGroup.UseVisualStyleBackColor = true;
+            buttonNewGroup.Click += buttonNewGroup_Click;
+            // 
+            // labelCurrentGroup
+            // 
+            labelCurrentGroup.AutoSize = true;
+            labelCurrentGroup.Location = new Point(590, 198);
+            labelCurrentGroup.Name = "labelCurrentGroup";
+            labelCurrentGroup.Size = new Size(134, 20);
+            labelCurrentGroup.TabIndex = 19;
+            labelCurrentGroup.Text = "Текущая группа: 1";
+            // 
+            // comboBoxGroupSelector
+            // 
+            comboBoxGroupSelector.FormattingEnabled = true;
+            comboBoxGroupSelector.Location = new Point(590, 374);
+            comboBoxGroupSelector.Name = "comboBoxGroupSelector";
+            comboBoxGroupSelector.Size = new Size(151, 28);
+            comboBoxGroupSelector.TabIndex = 20;
+            comboBoxGroupSelector.Text = "Выберите группу";
+            comboBoxGroupSelector.SelectedIndexChanged += comboBoxGroupSelector_SelectedIndexChanged;
+
+            // 
             // RuleInputForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1353, 492);
+            Controls.Add(comboBoxGroupSelector);
+            Controls.Add(labelCurrentGroup);
+            Controls.Add(buttonNewGroup);
             Controls.Add(buttonSaveRule);
             Controls.Add(buttonRemoveCondition);
             Controls.Add(listViewConditions);
@@ -257,5 +293,8 @@
         private ListView listViewConditions;
         private Button buttonRemoveCondition;
         private Button buttonSaveRule;
+        private Button buttonNewGroup;
+        private Label labelCurrentGroup;
+        private ComboBox comboBoxGroupSelector;
     }
 }

@@ -1,37 +1,41 @@
 ﻿using MigrationSystem22.Data;
 using MigrationSystem22.Models;
 
-namespace MigrationSystem22.Services;
-
-public class RuleService
+namespace MigrationSystem22.Services
 {
-    public void SaveRule(string whatToGet, string instruction, ControlDateType deadlineEvent, int deadlineDays, List<RuleConditionEntity> conditions)
+    public class RuleService
     {
-        using var db = new MigrationContext();
-
-        var rule = new RuleEntity
+        public void SaveDraft(RuleDraft draft)
         {
-            InstructionText = $"{whatToGet}\n\n{instruction}",
-            DeadlineEvent = deadlineEvent,
-            DeadlineDays = deadlineDays
-        };
+            using var db = new MigrationContext();
 
-        db.Rules.Add(rule);
-        db.SaveChanges();
+            var ruleEntity = new RuleEntity
+            {
+                InstructionText = $"{draft.WhatToGet}\n\n{draft.Instruction}",
+                DeadlineEvent = draft.DeadlineEvent,
+                DeadlineDays = draft.DeadlineDays
+            };
 
-        var group = new ConditionGroupEntity
-        {
-            RuleId = rule.RuleId
-        };
-        db.ConditionGroups.Add(group);
-        db.SaveChanges();
+            db.Rules.Add(ruleEntity);
+            db.SaveChanges();
 
-        foreach (var cond in conditions)
-        {
-            cond.GroupId = group.GroupId;
-            db.RuleConditions.Add(cond);
+            foreach (var group in draft.Groups)
+            {
+                var groupEntity = new ConditionGroupEntity
+                {
+                    RuleId = ruleEntity.RuleId
+                };
+                db.ConditionGroups.Add(groupEntity);
+                db.SaveChanges();
+
+                foreach (var condition in group)
+                {
+                    condition.GroupId = groupEntity.GroupId;
+                    db.RuleConditions.Add(condition);
+                }
+            }
+
+            db.SaveChanges();
         }
-
-        db.SaveChanges();
     }
 }
