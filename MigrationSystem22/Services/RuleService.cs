@@ -11,7 +11,8 @@ namespace MigrationSystem22.Services
 
             var ruleEntity = new RuleEntity
             {
-                InstructionText = $"{draft.WhatToGet}\n\n{draft.Instruction}",
+                WhatToGet = draft.WhatToGet,
+                Instruction = draft.Instruction,
                 DeadlineEvent = draft.DeadlineEvent,
                 DeadlineDays = draft.DeadlineDays
             };
@@ -21,21 +22,18 @@ namespace MigrationSystem22.Services
 
             foreach (var group in draft.Groups)
             {
-                var groupEntity = new ConditionGroupEntity
-                {
-                    RuleId = ruleEntity.RuleId
-                };
+                var groupEntity = new ConditionGroupEntity { RuleId = ruleEntity.RuleId };
                 db.ConditionGroups.Add(groupEntity);
                 db.SaveChanges();
 
-                foreach (var condition in group)
+                foreach (var cond in group)
                 {
-                    condition.GroupId = groupEntity.GroupId;
-                    db.RuleConditions.Add(condition);
+                    cond.GroupId = groupEntity.GroupId;
+                    db.RuleConditions.Add(cond);
                 }
             }
-
             db.SaveChanges();
         }
+
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MigrationSystem22.Models;
-
 namespace MigrationSystem22.Data
 {
     public class MigrationContext : DbContext
@@ -42,7 +41,15 @@ namespace MigrationSystem22.Data
                 entity.ToTable("rules");
                 entity.HasKey(e => e.RuleId);
                 entity.Property(e => e.RuleId).HasColumnName("rule_id");
-                entity.Property(e => e.InstructionText).HasColumnName("instruction_text");
+
+                entity.Property(e => e.WhatToGet)
+                      .HasColumnName("what_to_get")
+                      .IsRequired();
+
+                entity.Property(e => e.Instruction)
+                      .HasColumnName("instruction")
+                      .IsRequired();
+
                 entity.Property(e => e.DeadlineEvent).HasColumnName("deadline_event");
                 entity.Property(e => e.DeadlineDays).HasColumnName("deadline_days");
 

@@ -49,6 +49,7 @@
             buttonNewGroup = new Button();
             labelCurrentGroup = new Label();
             comboBoxGroupSelector = new ComboBox();
+            comboBoxConditionValue = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)numericDeadlineDays).BeginInit();
             SuspendLayout();
             // 
@@ -238,13 +239,22 @@
             comboBoxGroupSelector.TabIndex = 20;
             comboBoxGroupSelector.Text = "Выберите группу";
             comboBoxGroupSelector.SelectedIndexChanged += comboBoxGroupSelector_SelectedIndexChanged;
-
+            // 
+            // comboBoxConditionValue
+            // 
+            comboBoxConditionValue.FormattingEnabled = true;
+            comboBoxConditionValue.Location = new Point(925, 71);
+            comboBoxConditionValue.Name = "comboBoxConditionValue";
+            comboBoxConditionValue.Size = new Size(151, 28);
+            comboBoxConditionValue.TabIndex = 21;
+            comboBoxConditionValue.Visible = false;
             // 
             // RuleInputForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1353, 492);
+            Controls.Add(comboBoxConditionValue);
             Controls.Add(comboBoxGroupSelector);
             Controls.Add(labelCurrentGroup);
             Controls.Add(buttonNewGroup);
@@ -296,5 +306,6 @@
         private Button buttonNewGroup;
         private Label labelCurrentGroup;
         private ComboBox comboBoxGroupSelector;
+        private ComboBox comboBoxConditionValue;
     }
 }
