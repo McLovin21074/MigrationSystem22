@@ -10,9 +10,17 @@ namespace MigrationSystem22.Models
     {
         public int RuleId { get; set; }
         public string InstructionText { get; set; }
-        public string DeadlineEvent { get; set; }
+        public ControlDateType DeadlineEvent { get; set; }
         public int DeadlineDays { get; set; }
 
         public List<ConditionGroupEntity> ConditionGroups { get; set; }
     }
+
+    public enum ControlDateType
+    {
+        entry_date,
+        registration_date,
+        patent_issue_date
+    }
+
 }

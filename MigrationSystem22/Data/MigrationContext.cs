@@ -12,11 +12,16 @@ namespace MigrationSystem22.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseNpgsql("Host=localhost;Database=MigrationSystem1;Username=postgres;Password=toor");
+            options.UseNpgsql("Host=localhost;Database=MigrationSystem1;Username=postgres;Password=toor", o =>
+            {
+                o.MapEnum<ControlDateType>();
+            });
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasPostgresEnum<ControlDateType>();
+
             modelBuilder.Entity<User>(entity =>
             {
                 entity.ToTable("users");
@@ -71,6 +76,5 @@ namespace MigrationSystem22.Data
                 entity.Property(e => e.Value).HasColumnName("value");
             });
         }
-
     }
 }

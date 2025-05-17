@@ -49,7 +49,7 @@ public partial class UserInputForm : Form
             EntryGoal = comboBoxEntryGoal.SelectedItem?.ToString() ?? string.Empty
         };
 
-        if (_userController.SaveUser(user, out string error))
+        if (_userController.EnterDetails(user, out string error))
         {
             MessageBox.Show("Пользователь сохранён!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();

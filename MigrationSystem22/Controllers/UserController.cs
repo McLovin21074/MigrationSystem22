@@ -12,7 +12,7 @@ public class UserController
         _userService = new UserService();
     }
 
-    public bool SaveUser(User user, out string error)
+    public bool EnterDetails(User user, out string error)
     {
         try
         {
