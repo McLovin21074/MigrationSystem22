@@ -26,36 +26,24 @@ namespace MigrationSystem22.Models
             currentGroupIndex = groups.Count - 1;
         }
 
+        public void SetCurrentGroup(int index)
+        {
+            if (index < 0 || index >= groups.Count)
+                throw new ArgumentOutOfRangeException(nameof(index));
+            currentGroupIndex = index;
+        }
+
         public void AddCondition(string fieldName, string @operator, string value)
         {
             if (currentGroupIndex < 0)
-                throw new InvalidOperationException("Группа условий не инициализирована");
-
-            var condition = new RuleConditionEntity
+                throw new InvalidOperationException("Нет активной группы");
+            var cond = new RuleConditionEntity
             {
                 FieldName = fieldName,
                 Operator = @operator,
                 Value = value
             };
-            groups[currentGroupIndex].Add(condition);
-        }
-
-        public void LoadGroups(List<List<RuleConditionEntity>> externalGroups)
-        {
-            groups.Clear();
-            foreach (var grp in externalGroups)
-            {
-                var newGrp = new List<RuleConditionEntity>();
-                foreach (var cond in grp)
-                    newGrp.Add(new RuleConditionEntity
-                    {
-                        FieldName = cond.FieldName,
-                        Operator = cond.Operator,
-                        Value = cond.Value
-                    });
-                groups.Add(newGrp);
-            }
-            currentGroupIndex = 0;
+            groups[currentGroupIndex].Add(cond);
         }
 
         public void RemoveCondition(int groupIndex, int conditionIndex)
@@ -66,6 +54,25 @@ namespace MigrationSystem22.Models
             if (conditionIndex < 0 || conditionIndex >= group.Count)
                 throw new ArgumentOutOfRangeException(nameof(conditionIndex));
             group.RemoveAt(conditionIndex);
+        }
+
+        public static RuleDraft FromEntity(RuleEntity e)
+        {
+            var d = new RuleDraft
+            {
+                WhatToGet = e.WhatToGet,
+                Instruction = e.Instruction,
+                DeadlineEvent = e.DeadlineEvent,
+                DeadlineDays = e.DeadlineDays
+            };
+            d.groups.Clear();
+            foreach (var g in e.ConditionGroups)
+            {
+                d.StartNewGroup();
+                foreach (var c in g.Conditions)
+                    d.AddCondition(c.FieldName, c.Operator, c.Value);
+            }
+            return d;
         }
     }
 }
