@@ -82,14 +82,15 @@
             // textBoxInstruction
             // 
             textBoxInstruction.Location = new Point(35, 134);
+            textBoxInstruction.Multiline = true;
             textBoxInstruction.Name = "textBoxInstruction";
-            textBoxInstruction.Size = new Size(31, 27);
+            textBoxInstruction.Size = new Size(274, 27);
             textBoxInstruction.TabIndex = 3;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(29, 199);
+            label3.Location = new Point(23, 287);
             label3.Name = "label3";
             label3.Size = new Size(118, 20);
             label3.TabIndex = 4;
@@ -98,7 +99,7 @@
             // comboBoxDeadlineEvent
             // 
             comboBoxDeadlineEvent.FormattingEnabled = true;
-            comboBoxDeadlineEvent.Location = new Point(35, 246);
+            comboBoxDeadlineEvent.Location = new Point(29, 334);
             comboBoxDeadlineEvent.Name = "comboBoxDeadlineEvent";
             comboBoxDeadlineEvent.Size = new Size(151, 28);
             comboBoxDeadlineEvent.TabIndex = 5;
@@ -106,7 +107,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(35, 309);
+            label4.Location = new Point(29, 397);
             label4.Name = "label4";
             label4.Size = new Size(91, 20);
             label4.TabIndex = 6;
@@ -114,7 +115,7 @@
             // 
             // numericDeadlineDays
             // 
-            numericDeadlineDays.Location = new Point(36, 344);
+            numericDeadlineDays.Location = new Point(30, 432);
             numericDeadlineDays.Maximum = new decimal(new int[] { 365, 0, 0, 0 });
             numericDeadlineDays.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numericDeadlineDays.Name = "numericDeadlineDays";

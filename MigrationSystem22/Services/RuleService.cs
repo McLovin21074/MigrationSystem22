@@ -24,6 +24,7 @@ namespace MigrationSystem22.Services
 
             foreach (var group in draft.Groups)
             {
+                if (group.Count == 0) continue;
                 var groupEntity = new ConditionGroupEntity { RuleId = ruleEntity.RuleId };
                 db.ConditionGroups.Add(groupEntity);
                 db.SaveChanges();

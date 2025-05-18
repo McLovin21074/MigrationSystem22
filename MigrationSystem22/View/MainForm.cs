@@ -18,7 +18,7 @@ namespace MigrationSystem22.View
 
         private void buttonUser_Click(object sender, EventArgs e)
         {
-            using var f = new UserInputForm();
+            using var f = new UserListForm();
             f.ShowDialog();
         }
     }
