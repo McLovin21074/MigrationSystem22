@@ -11,7 +11,7 @@ namespace MigrationSystem22.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseNpgsql("Host=localhost;Database=MigrationSystem1;Username=postgres;Password=toor", o =>
+            options.UseNpgsql("Host=localhost;Port=5433;Database=MigrationSystem1;Username=postgres;Password=toor", o =>
             {
                 o.MapEnum<ControlDateType>();
             });
