@@ -37,9 +37,15 @@ public partial class UserInputForm : Form
 
     private void buttonSave_Click(object sender, EventArgs e)
     {
+        var entryDateUtc = DateTime.SpecifyKind(dateTimePickerEntryDate.Value.Date, DateTimeKind.Utc);
+        var registrationDateUtc = DateTime.SpecifyKind(dateTimePickerRegistrationDate.Value.Date, DateTimeKind.Utc);
+        var patentIssueDateUtc = DateTime.SpecifyKind(dateTimePickerPatentIssueDate.Value.Date, DateTimeKind.Utc);
+
         var user = new User
         {
-            EntryDate = DateTime.SpecifyKind(dateTimePickerEntryDate.Value.Date, DateTimeKind.Utc),
+            EntryDate = entryDateUtc,
+            RegistrationDate = registrationDateUtc,
+            PatentIssueDate = patentIssueDateUtc,
             Country = comboBoxCountry.SelectedItem?.ToString() ?? string.Empty,
             Qualification = checkBoxQualification.Checked,
             IsInProgram = checkBoxIsInProgram.Checked,
@@ -58,5 +64,10 @@ public partial class UserInputForm : Form
         {
             MessageBox.Show("Ошибка: " + error, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+    }
+
+    private void label1_Click(object sender, EventArgs e)
+    {
+
     }
 }

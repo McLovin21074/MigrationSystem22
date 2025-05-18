@@ -40,6 +40,10 @@
             comboBoxCountry = new ComboBox();
             comboBoxEntryGoal = new ComboBox();
             labelEntryGoal = new Label();
+            dateTimePickerRegistrationDate = new DateTimePicker();
+            dateTimePickerPatentIssueDate = new DateTimePicker();
+            label1 = new Label();
+            label2 = new Label();
             SuspendLayout();
             // 
             // labelEntryDate
@@ -152,11 +156,48 @@
             labelEntryGoal.TabIndex = 12;
             labelEntryGoal.Text = "Цель въезда";
             // 
+            // dateTimePickerRegistrationDate
+            // 
+            dateTimePickerRegistrationDate.Location = new Point(394, 422);
+            dateTimePickerRegistrationDate.Name = "dateTimePickerRegistrationDate";
+            dateTimePickerRegistrationDate.Size = new Size(250, 27);
+            dateTimePickerRegistrationDate.TabIndex = 13;
+            // 
+            // dateTimePickerPatentIssueDate
+            // 
+            dateTimePickerPatentIssueDate.Location = new Point(712, 422);
+            dateTimePickerPatentIssueDate.Name = "dateTimePickerPatentIssueDate";
+            dateTimePickerPatentIssueDate.Size = new Size(250, 27);
+            dateTimePickerPatentIssueDate.TabIndex = 14;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(403, 382);
+            label1.Name = "label1";
+            label1.Size = new Size(134, 20);
+            label1.TabIndex = 15;
+            label1.Text = "Дата регистрации";
+            label1.Click += label1_Click;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(720, 376);
+            label2.Name = "label2";
+            label2.Size = new Size(178, 20);
+            label2.TabIndex = 16;
+            label2.Text = "Дата получения патента";
+            // 
             // UserInputForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1265, 547);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            Controls.Add(dateTimePickerPatentIssueDate);
+            Controls.Add(dateTimePickerRegistrationDate);
             Controls.Add(labelEntryGoal);
             Controls.Add(comboBoxEntryGoal);
             Controls.Add(comboBoxCountry);
@@ -189,5 +230,9 @@
         private ComboBox comboBoxCountry;
         private ComboBox comboBoxEntryGoal;
         private Label labelEntryGoal;
+        private DateTimePicker dateTimePickerRegistrationDate;
+        private DateTimePicker dateTimePickerPatentIssueDate;
+        private Label label1;
+        private Label label2;
     }
 }

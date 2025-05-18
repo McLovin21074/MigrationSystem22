@@ -27,6 +27,8 @@ namespace MigrationSystem22.Data
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Id).HasColumnName("id");
                 entity.Property(e => e.EntryDate).HasColumnName("entry_date");
+                entity.Property(e => e.RegistrationDate).HasColumnName("registration_date");
+                entity.Property(e => e.PatentIssueDate).HasColumnName("patent_issue_date");
                 entity.Property(e => e.Country).HasColumnName("country");
                 entity.Property(e => e.Qualification).HasColumnName("qualification");
                 entity.Property(e => e.IsInProgram).HasColumnName("is_in_program");

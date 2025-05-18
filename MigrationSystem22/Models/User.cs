@@ -4,6 +4,8 @@
     {
         public int Id { get; set; }
         public DateTime EntryDate { get; set; }
+        public DateTime RegistrationDate { get; set; } 
+        public DateTime PatentIssueDate { get; set; }
         public string Country { get; set; }
         public bool Qualification { get; set; }
         public bool IsInProgram { get; set; }
