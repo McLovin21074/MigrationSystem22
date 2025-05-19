@@ -11,7 +11,6 @@ namespace MigrationSystem22
         {
             ApplicationConfiguration.Initialize();
 
-            // Вместо RuleInputForm запускаем MainForm
             Application.Run(new MainForm());
         }
     }
