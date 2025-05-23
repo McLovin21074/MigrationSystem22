@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Windows.Forms;
 using MigrationSystem22.Controllers;
-using MigrationSystem22.Models;
 
 namespace MigrationSystem22.View
 {

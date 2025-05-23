@@ -8,44 +8,64 @@
 
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             dataGridView1 = new DataGridView();
             btnAdd = new Button();
             btnEdit = new Button();
             btnDelete = new Button();
-
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            SuspendLayout();
+            // 
             // dataGridView1
-            dataGridView1.Location = new System.Drawing.Point(12, 12);
-            dataGridView1.Size = new System.Drawing.Size(600, 300);
+            // 
+            dataGridView1.ColumnHeadersHeight = 29;
+            dataGridView1.Location = new Point(12, 12);
+            dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
+            dataGridView1.RowHeadersWidth = 51;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.AutoGenerateColumns = true;
-
+            dataGridView1.Size = new Size(600, 300);
+            dataGridView1.TabIndex = 0;
+            // 
             // btnAdd
+            // 
+            btnAdd.Location = new Point(630, 30);
+            btnAdd.Name = "btnAdd";
+            btnAdd.Size = new Size(118, 44);
+            btnAdd.TabIndex = 1;
             btnAdd.Text = "Добавить";
-            btnAdd.Location = new System.Drawing.Point(630, 30);
             btnAdd.Click += btnAdd_Click;
-
+            // 
             // btnEdit
+            // 
+            btnEdit.Location = new Point(630, 80);
+            btnEdit.Name = "btnEdit";
+            btnEdit.Size = new Size(118, 44);
+            btnEdit.TabIndex = 2;
             btnEdit.Text = "Редактировать";
-            btnEdit.Location = new System.Drawing.Point(630, 80);
             btnEdit.Click += btnEdit_Click;
-
+            // 
             // btnDelete
+            // 
+            btnDelete.Location = new Point(630, 130);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(118, 43);
+            btnDelete.TabIndex = 3;
             btnDelete.Text = "Удалить";
-            btnDelete.Location = new System.Drawing.Point(630, 130);
             btnDelete.Click += btnDelete_Click;
-
+            // 
             // RuleListForm
-            Text = "Список правил";
-            ClientSize = new System.Drawing.Size(760, 330);
-            FormBorderStyle = FormBorderStyle.FixedDialog;
-            StartPosition = FormStartPosition.CenterParent;
-
+            // 
+            ClientSize = new Size(760, 330);
             Controls.Add(dataGridView1);
             Controls.Add(btnAdd);
             Controls.Add(btnEdit);
             Controls.Add(btnDelete);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            Name = "RuleListForm";
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Список правил";
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ResumeLayout(false);
         }
 
         protected override void Dispose(bool disposing)

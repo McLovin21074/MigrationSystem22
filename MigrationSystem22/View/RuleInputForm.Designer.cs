@@ -66,7 +66,7 @@
             // 
             textBoxWhatToGet.Location = new Point(34, 40);
             textBoxWhatToGet.Name = "textBoxWhatToGet";
-            textBoxWhatToGet.Size = new Size(125, 27);
+            textBoxWhatToGet.Size = new Size(306, 27);
             textBoxWhatToGet.TabIndex = 1;
             textBoxWhatToGet.Text = "Получить";
             // 
@@ -84,7 +84,7 @@
             textBoxInstruction.Location = new Point(35, 134);
             textBoxInstruction.Multiline = true;
             textBoxInstruction.Name = "textBoxInstruction";
-            textBoxInstruction.Size = new Size(274, 27);
+            textBoxInstruction.Size = new Size(274, 131);
             textBoxInstruction.TabIndex = 3;
             // 
             // label3
@@ -169,9 +169,9 @@
             // 
             // textBoxConditionValue
             // 
-            textBoxConditionValue.Location = new Point(925, 71);
+            textBoxConditionValue.Location = new Point(917, 66);
             textBoxConditionValue.Name = "textBoxConditionValue";
-            textBoxConditionValue.Size = new Size(125, 27);
+            textBoxConditionValue.Size = new Size(147, 27);
             textBoxConditionValue.TabIndex = 13;
             // 
             // buttonAddCondition
@@ -186,15 +186,15 @@
             // 
             // listViewConditions
             // 
-            listViewConditions.Location = new Point(590, 232);
+            listViewConditions.Location = new Point(466, 232);
             listViewConditions.Name = "listViewConditions";
-            listViewConditions.Size = new Size(151, 121);
+            listViewConditions.Size = new Size(414, 121);
             listViewConditions.TabIndex = 15;
             listViewConditions.UseCompatibleStateImageBehavior = false;
             // 
             // buttonRemoveCondition
             // 
-            buttonRemoveCondition.Location = new Point(925, 324);
+            buttonRemoveCondition.Location = new Point(772, 118);
             buttonRemoveCondition.Name = "buttonRemoveCondition";
             buttonRemoveCondition.Size = new Size(94, 29);
             buttonRemoveCondition.TabIndex = 16;
@@ -204,9 +204,9 @@
             // 
             // buttonSaveRule
             // 
-            buttonSaveRule.Location = new Point(1206, 386);
+            buttonSaveRule.Location = new Point(1023, 374);
             buttonSaveRule.Name = "buttonSaveRule";
-            buttonSaveRule.Size = new Size(94, 29);
+            buttonSaveRule.Size = new Size(130, 48);
             buttonSaveRule.TabIndex = 17;
             buttonSaveRule.Text = "Сохранить правило";
             buttonSaveRule.UseVisualStyleBackColor = true;
@@ -214,7 +214,7 @@
             // 
             // buttonNewGroup
             // 
-            buttonNewGroup.Location = new Point(906, 178);
+            buttonNewGroup.Location = new Point(929, 178);
             buttonNewGroup.Name = "buttonNewGroup";
             buttonNewGroup.Size = new Size(113, 62);
             buttonNewGroup.TabIndex = 18;
@@ -244,7 +244,7 @@
             // comboBoxConditionValue
             // 
             comboBoxConditionValue.FormattingEnabled = true;
-            comboBoxConditionValue.Location = new Point(925, 71);
+            comboBoxConditionValue.Location = new Point(913, 63);
             comboBoxConditionValue.Name = "comboBoxConditionValue";
             comboBoxConditionValue.Size = new Size(151, 28);
             comboBoxConditionValue.TabIndex = 21;

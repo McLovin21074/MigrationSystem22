@@ -164,5 +164,10 @@ namespace MigrationSystem22.View
         }
 
         private void label6_Click(object sender, EventArgs e) { }
+
+        private void comboBoxOperator_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

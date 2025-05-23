@@ -3,14 +3,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using MigrationSystem22.Controllers;
-using MigrationSystem22.Models;
 
 namespace MigrationSystem22.View
 {
     public partial class RuleListForm : Form
     {
         private readonly RuleController controller = new RuleController();
-        private BindingList<RuleEntity> binding;
 
         public RuleListForm()
         {
@@ -20,12 +18,14 @@ namespace MigrationSystem22.View
 
         private void LoadRules()
         {
-            var list = controller.GetAllRules();
-            binding = new BindingList<RuleEntity>(list);
-            dataGridView1.DataSource = binding;
+            var table = controller.GetRuleTable();
+            dataGridView1.DataSource = table;
 
-            if (dataGridView1.Columns.Contains("ConditionGroups"))
-                dataGridView1.Columns["ConditionGroups"].Visible = false;
+            dataGridView1.Columns["RuleId"].HeaderText = "ID";
+            dataGridView1.Columns["WhatToGet"].HeaderText = "Что получить";
+            dataGridView1.Columns["Instruction"].HeaderText = "Инструкция";
+            dataGridView1.Columns["DeadlineEvent"].HeaderText = "Отсчёт от";
+            dataGridView1.Columns["DeadlineDays"].HeaderText = "Дней";
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -38,8 +38,8 @@ namespace MigrationSystem22.View
         private void btnEdit_Click(object sender, EventArgs e)
         {
             if (dataGridView1.CurrentRow == null) return;
-            var rule = (RuleEntity)dataGridView1.CurrentRow.DataBoundItem;
-            using var f = new RuleInputForm(rule.RuleId);
+            int ruleId = (int)dataGridView1.CurrentRow.Cells["RuleId"].Value;
+            using var f = new RuleInputForm(ruleId);
             f.ShowDialog();
             LoadRules();
         }
@@ -47,11 +47,11 @@ namespace MigrationSystem22.View
         private void btnDelete_Click(object sender, EventArgs e)
         {
             if (dataGridView1.CurrentRow == null) return;
-            var rule = (RuleEntity)dataGridView1.CurrentRow.DataBoundItem;
-            if (MessageBox.Show($"Удалить правило #{rule.RuleId}?", "Подтвердите",
+            int ruleId = (int)dataGridView1.CurrentRow.Cells["RuleId"].Value;
+            if (MessageBox.Show($"Удалить правило #{ruleId}?", "Подтвердите",
                     MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                controller.DeleteRule(rule.RuleId);
+                controller.DeleteRule(ruleId);
                 LoadRules();
             }
         }

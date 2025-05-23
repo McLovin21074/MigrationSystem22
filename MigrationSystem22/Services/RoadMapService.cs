@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 using MigrationSystem22.Data;
 using MigrationSystem22.Models;
-using Microsoft.EntityFrameworkCore;
-using System.Globalization;
 
 namespace MigrationSystem22.Services
 {
@@ -46,9 +45,14 @@ namespace MigrationSystem22.Services
                 });
             }
 
+            roadmap.Points = roadmap.Points
+                .GroupBy(p => p.Text)
+                .Select(g => g.OrderBy(p => p.DeadlineDate).First())
+                .OrderBy(p => p.DeadlineDate)
+                .ToList();
+
             return roadmap;
         }
-
 
         private bool IsRuleApplicable(RuleEntity rule, User user)
         {
@@ -65,7 +69,7 @@ namespace MigrationSystem22.Services
         private bool EvaluateCondition(RuleConditionEntity cond, User user)
         {
             var prop = typeof(User).GetProperty(cond.FieldName,
-                                                BindingFlags.Public | BindingFlags.Instance);
+                                                System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
             var userValObj = prop.GetValue(user);
             var targetType = Nullable.GetUnderlyingType(prop.PropertyType)
                              ?? prop.PropertyType;
@@ -80,14 +84,14 @@ namespace MigrationSystem22.Services
                     return false;
 
                 var userDate = ((DateTime)userValObj).Date;
-                switch (cond.Operator)
+                return cond.Operator switch
                 {
-                    case "=": return userDate == condDate;
-                    case "!=": return userDate != condDate;
-                    case ">": return userDate > condDate;
-                    case "<": return userDate < condDate;
-                    default: return false;
-                }
+                    "=" => userDate == condDate,
+                    "!=" => userDate != condDate,
+                    ">" => userDate > condDate,
+                    "<" => userDate < condDate,
+                    _ => false
+                };
             }
 
             if (targetType == typeof(bool))
@@ -111,6 +115,5 @@ namespace MigrationSystem22.Services
                 _ => false
             };
         }
-
     }
 }

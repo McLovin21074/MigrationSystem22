@@ -13,10 +13,12 @@ namespace MigrationSystem22.View
         public UserInputForm(int? userId = null)
         {
             InitializeComponent();
-            userId = userId;
+            this.userId = userId;
 
             Load += UserInputForm_Load;
             tabControl1.SelectedIndexChanged += TabControl1_SelectedIndexChanged;
+            checkBoxWasMigrant.CheckedChanged += CheckBoxWasMigrant_CheckedChanged;
+            checkBoxHasPatent.CheckedChanged += CheckBoxHasPatent_CheckedChanged;
         }
 
         private void UserInputForm_Load(object sender, EventArgs e)
@@ -24,7 +26,7 @@ namespace MigrationSystem22.View
             comboBoxCountry.Items.AddRange(new[]
             {
                 "Азербайджан","Армения","Беларусь","Казахстан","Киргизия",
-                "Молдова","Россия","Таджикистан","Узбекистан","Украина","Другое"
+                "Молдова","Россия","Таджикистан","Узбекистан", "Украина", "Другое"
             });
             comboBoxCountry.SelectedIndex = 0;
 
@@ -47,33 +49,63 @@ namespace MigrationSystem22.View
 
                 textBoxFullName.Text = userController.FullName;
                 dateTimePickerEntryDate.Value = userController.EntryDate.ToLocalTime();
-                dateTimePickerRegistrationDate.Value = userController.RegistrationDate?.ToLocalTime() ?? DateTime.Now;
-                dateTimePickerPatentIssueDate.Value = userController.PatentIssueDate?.ToLocalTime() ?? DateTime.Now;
+
+                checkBoxWasMigrant.Checked = userController.WasMigrant;
+                dateTimePickerRegistrationDate.Enabled = userController.WasMigrant;
+                if (userController.RegistrationDate.HasValue)
+                    dateTimePickerRegistrationDate.Value = userController.RegistrationDate.Value.ToLocalTime();
+
+                checkBoxHasPatent.Checked = userController.HasPatent;
+                dateTimePickerPatentIssueDate.Enabled = userController.HasPatent;
+                if (userController.PatentIssueDate.HasValue)
+                    dateTimePickerPatentIssueDate.Value = userController.PatentIssueDate.Value.ToLocalTime();
+
                 comboBoxCountry.SelectedItem = userController.Country;
                 checkBoxQualification.Checked = userController.Qualification;
                 checkBoxIsInProgram.Checked = userController.IsInProgram;
-                checkBoxWasMigrant.Checked = userController.WasMigrant;
                 checkBoxHasWorkPermit.Checked = userController.HasWorkPermit;
-                checkBoxHasPatent.Checked = userController.HasPatent;
                 comboBoxEntryGoal.SelectedItem = userController.EntryGoal;
             }
             else
             {
                 userController.NewUser();
+                checkBoxWasMigrant.Checked = false;
+                checkBoxHasPatent.Checked = false;
+                dateTimePickerRegistrationDate.Enabled = false;
+                dateTimePickerPatentIssueDate.Enabled = false;
             }
+        }
+
+        private void CheckBoxWasMigrant_CheckedChanged(object? sender, EventArgs e)
+        {
+            dateTimePickerRegistrationDate.Enabled = checkBoxWasMigrant.Checked;
+        }
+
+        private void CheckBoxHasPatent_CheckedChanged(object? sender, EventArgs e)
+        {
+            dateTimePickerPatentIssueDate.Enabled = checkBoxHasPatent.Checked;
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            var entryDate = DateTime.SpecifyKind(dateTimePickerEntryDate.Value.Date, DateTimeKind.Utc);
-            var registrationDate = DateTime.SpecifyKind(
-                dateTimePickerRegistrationDate.Value.Date,
+            var entryDate = DateTime.SpecifyKind(
+                dateTimePickerEntryDate.Value.Date,
                 DateTimeKind.Utc
             );
-            var patentIssueDate = DateTime.SpecifyKind(
-                dateTimePickerPatentIssueDate.Value.Date,
-                DateTimeKind.Utc
-            );
+
+            DateTime? registrationDate = checkBoxWasMigrant.Checked
+                ? DateTime.SpecifyKind(
+                    dateTimePickerRegistrationDate.Value.Date,
+                    DateTimeKind.Utc
+                  )
+                : (DateTime?)null;
+
+            DateTime? patentIssueDate = checkBoxHasPatent.Checked
+                ? DateTime.SpecifyKind(
+                    dateTimePickerPatentIssueDate.Value.Date,
+                    DateTimeKind.Utc
+                  )
+                : (DateTime?)null;
 
             var fullName = textBoxFullName.Text.Trim();
             var country = comboBoxCountry.SelectedItem!.ToString();
@@ -126,9 +158,11 @@ namespace MigrationSystem22.View
                                   .Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
                                   .FirstOrDefault() ?? "",
                     ЧтоСделать = p.Text.Contains("\n")
-                                  ? p.Text.Substring(p.Text.IndexOf('\n') + 1).Trim()
+                                  ? p.Text[(p.Text.IndexOf('\n') + 1)..].Trim()
                                   : "",
-                    КрайнийСрок = p.DeadlineDate.ToLocalTime().ToString("dd.MM.yyyy")
+                    КрайнийСрок = p.DeadlineDate
+                                  .ToLocalTime()
+                                  .ToString("dd.MM.yyyy")
                 })
                 .ToList();
 
@@ -143,7 +177,6 @@ namespace MigrationSystem22.View
             grid.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             grid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
             grid.Columns["ЧтоПолучить"].HeaderText = "Что нужно получить";
             grid.Columns["ЧтоСделать"].HeaderText = "Что нужно сделать";
             grid.Columns["КрайнийСрок"].HeaderText = "Крайний срок";
@@ -154,7 +187,6 @@ namespace MigrationSystem22.View
 
             grid.RowTemplate.DefaultCellStyle.Padding = new Padding(5);
             grid.RowHeadersVisible = false;
-
             grid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             grid.EnableHeadersVisualStyles = false;
             grid.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(240, 240, 240);
