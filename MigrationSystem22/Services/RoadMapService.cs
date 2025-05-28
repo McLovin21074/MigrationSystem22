@@ -59,7 +59,7 @@ namespace MigrationSystem22.Services
             var nonEmptyGroups = rule.ConditionGroups
                                      .Where(g => g.Conditions.Count > 0);
 
-            if (!nonEmptyGroups.Any())
+            if (nonEmptyGroups.Count() == 0)
                 return false;
 
             return nonEmptyGroups
@@ -105,6 +105,34 @@ namespace MigrationSystem22.Services
                     "!=" => userBool != condBool,
                     _ => false
                 };
+            }
+
+            if (targetType == typeof(int)
+                || targetType == typeof(double)
+                || targetType == typeof(decimal)
+                || targetType == typeof(float)
+                || targetType == typeof(long)
+                || targetType == typeof(short))
+            {
+                try
+                {
+                    var userNum = Convert.ToDecimal(userValObj, CultureInfo.InvariantCulture);
+                    var condNum = Convert.ToDecimal(cond.Value, CultureInfo.InvariantCulture);
+                    return cond.Operator switch
+                    {
+                        "=" => userNum == condNum,
+                        "!=" => userNum != condNum,
+                        ">" => userNum > condNum,
+                        "<" => userNum < condNum,
+                        ">=" => userNum >= condNum,
+                        "<=" => userNum <= condNum,
+                        _ => false
+                    };
+                }
+                catch
+                {
+                    return false;
+                }
             }
 
             var condValTyped = Convert.ChangeType(cond.Value, targetType);

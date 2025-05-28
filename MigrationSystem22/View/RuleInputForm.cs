@@ -25,16 +25,22 @@ namespace MigrationSystem22.View
 
             comboBoxDeadlineEvent.Items.AddRange(Enum.GetNames(typeof(ControlDateType)));
             comboBoxDeadlineEvent.SelectedItem = controller.DraftDeadlineEvent.ToString();
-
             var dDays = controller.DraftDeadlineDays;
             if (dDays < numericDeadlineDays.Minimum || dDays > numericDeadlineDays.Maximum)
                 dDays = (int)numericDeadlineDays.Minimum;
             numericDeadlineDays.Value = dDays;
 
-            comboBoxField.Items.AddRange(controller.AvailableFields.ToArray());
+            var fields = controller.AvailableFields
+                          .Select(f => new {
+                              Key = f,
+                              Value = controller.GetFieldDefinition(f).DisplayName
+                          })
+                          .ToList();
+            comboBoxField.DataSource = fields;
+            comboBoxField.DisplayMember = "Value";
+            comboBoxField.ValueMember = "Key";
             comboBoxField.SelectedIndexChanged += comboBoxField_SelectedIndexChanged;
             comboBoxField.SelectedIndex = 0;
-            ApplyFieldDefinition(comboBoxField.SelectedItem.ToString());
 
             comboBoxGroupSelector.Items.Clear();
             for (int i = 0; i < controller.Groups.Count; i++)
@@ -47,7 +53,8 @@ namespace MigrationSystem22.View
 
         private void comboBoxField_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ApplyFieldDefinition(comboBoxField.SelectedItem.ToString());
+            var fieldKey = comboBoxField.SelectedValue.ToString();
+            ApplyFieldDefinition(fieldKey);
         }
 
         private void ApplyFieldDefinition(string fieldName)
@@ -76,15 +83,15 @@ namespace MigrationSystem22.View
 
         private void buttonAddCondition_Click(object sender, EventArgs e)
         {
-            var field = comboBoxField.SelectedItem.ToString();
-            var def = controller.GetFieldDefinition(field);
+            var fieldKey = comboBoxField.SelectedValue.ToString();
+            var def = controller.GetFieldDefinition(fieldKey);
             var op = comboBoxOperator.SelectedItem.ToString();
 
             string val = def.AllowedValues != null
                 ? comboBoxConditionValue.SelectedItem.ToString()
                 : textBoxConditionValue.Text.Trim();
 
-            controller.AddCondition(field, op, val);
+            controller.AddCondition(fieldKey, op, val);
             RefreshConditionList();
         }
 
@@ -116,6 +123,21 @@ namespace MigrationSystem22.View
         {
             var w = textBoxWhatToGet.Text.Trim();
             var ins = textBoxInstruction.Text.Trim();
+
+            bool hasConditions = controller.Groups.Any(g => g.Count > 0);
+            if (string.IsNullOrEmpty(w)
+                || string.IsNullOrEmpty(ins)
+                || !hasConditions)
+            {
+                MessageBox.Show(
+                    "Нельзя сохранять пустое правило. Нужно заполнить поля «Что нужно получить», «Инструкция» и добавьте хотя бы одно условие.",
+                    "Ошибка валидации",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+
             controller.SetMetadata(w, ins);
 
             if (!Enum.TryParse<ControlDateType>(
@@ -152,7 +174,8 @@ namespace MigrationSystem22.View
                     var c = groups[gi][ci];
                     var item = new ListViewItem($"Группа {gi + 1}")
                     { Tag = Tuple.Create(gi, ci) };
-                    item.SubItems.Add(c.FieldName);
+                    var disp = controller.GetFieldDefinition(c.FieldName).DisplayName;
+                    item.SubItems.Add(disp);
                     item.SubItems.Add(c.Operator);
                     item.SubItems.Add(c.Value);
                     listViewConditions.Items.Add(item);
@@ -161,13 +184,6 @@ namespace MigrationSystem22.View
             listViewConditions.AutoResizeColumns(
                 ColumnHeaderAutoResizeStyle.HeaderSize
             );
-        }
-
-        private void label6_Click(object sender, EventArgs e) { }
-
-        private void comboBoxOperator_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

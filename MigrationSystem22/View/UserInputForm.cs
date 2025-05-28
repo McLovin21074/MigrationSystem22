@@ -5,6 +5,12 @@ using MigrationSystem22.Controllers;
 
 namespace MigrationSystem22.View
 {
+    public enum UserInputMode
+    {
+        Login,
+        Register
+    }
+
     public partial class UserInputForm : Form
     {
         private readonly UserController userController = new();
@@ -13,6 +19,8 @@ namespace MigrationSystem22.View
         public UserInputForm(int? userId = null)
         {
             InitializeComponent();
+
+
             this.userId = userId;
 
             Load += UserInputForm_Load;

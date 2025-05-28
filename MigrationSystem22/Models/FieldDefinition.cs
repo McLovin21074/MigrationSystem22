@@ -9,5 +9,6 @@ namespace MigrationSystem22.Models
         public string[] AllowedOperators { get; set; }
 
         public string[] AllowedValues { get; set; }
+        public string DisplayName {  get; set; }
     }
 }
