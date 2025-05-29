@@ -1,25 +1,33 @@
-﻿using MigrationSystem22.Models;
+﻿using System;
+using System.Collections.Generic;
+using MigrationSystem22.Models;
 using MigrationSystem22.Services;
 
 namespace MigrationSystem22.Controllers
 {
     public class UserController
     {
-        private readonly UserService userService = new UserService();
-        private readonly RoadMapService roadMapService = new RoadMapService();
-        private User user;
+        private readonly UserService _userService = new UserService();
+        private readonly RoadMapService _roadMapService = new RoadMapService();
+        private readonly AccountService _accountService = new AccountService();
+
+        private User _currentUser;
+
+        private AccountEntity _currentOperatorAccount;
+
 
         public void NewUser()
         {
-            user = new User();
+            _currentUser = new User();
         }
 
         public bool LoadUser(int id, out string error)
         {
             try
             {
-                user = userService.GetUserById(id)
-                      ?? throw new Exception($"Пользователь {id} не найден");
+                var u = _userService.GetUserById(id)
+                        ?? throw new Exception($"Пользователь {id} не найден");
+                _currentUser = u;
                 error = null;
                 return true;
             }
@@ -29,6 +37,40 @@ namespace MigrationSystem22.Controllers
                 return false;
             }
         }
+
+
+        public bool LoginMigrant(string username, string password, out string error)
+        {
+            error = null;
+            var acct = _accountService.AuthenticateAccount(username, password);
+            if (acct == null || acct.Role != "Migrant")
+            {
+                error = "Неверный логин или пароль мигранта";
+                return false;
+            }
+            _currentUser = acct.User;
+            return true;
+        }
+
+        public bool RegisterMigrant(string username, string password, out string error)
+        {
+            error = null;
+            try
+            {
+                var acct = _accountService.RegisterOperatorOrMigrant(
+                    username, password, "Migrant"
+                );
+                _currentUser = acct.User;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message;
+                return false;
+            }
+        }
+
+        public int CurrentUserId => _currentUser?.Id ?? 0;
 
         public bool EnterDetails(
             DateTime entryDate,
@@ -45,57 +87,94 @@ namespace MigrationSystem22.Controllers
             out string error
         )
         {
-            user.EntryDate = entryDate;
-            user.RegistrationDate = registrationDate;
-            user.PatentIssueDate = patentIssueDate;
-            user.FullName = fullName;
-            user.Country = country;
-            user.Qualification = qualification;
-            user.IsInProgram = isInProgram;
-            user.WasMigrant = wasMigrant;
-            user.HasWorkPermit = hasWorkPermit;
-            user.HasPatent = hasPatent;
-            user.EntryGoal = entryGoal;
+            error = null;
+            _currentUser.EntryDate = entryDate;
+            _currentUser.RegistrationDate = registrationDate;
+            _currentUser.PatentIssueDate = patentIssueDate;
+            _currentUser.FullName = fullName;
+            _currentUser.Country = country;
+            _currentUser.Qualification = qualification;
+            _currentUser.IsInProgram = isInProgram;
+            _currentUser.WasMigrant = wasMigrant;
+            _currentUser.HasWorkPermit = hasWorkPermit;
+            _currentUser.HasPatent = hasPatent;
+            _currentUser.EntryGoal = entryGoal;
 
             try
             {
-                if (user.Id == 0)
-                    userService.SaveUser(user);
+                if (_currentUser.Id == 0)
+                    _userService.SaveUser(_currentUser);
                 else
-                    userService.UpdateUser(user);
-
-                error = null;
+                    _userService.UpdateUser(_currentUser);
                 return true;
             }
             catch (Exception ex)
             {
-                var msg = ex.Message;
-                if (ex.InnerException != null)
-                    msg += "\r\nInner: " + ex.InnerException.Message;
-                error = msg;
+                error = ex.Message +
+                        (ex.InnerException != null ? "\nInner: " + ex.InnerException.Message : "");
                 return false;
             }
-
         }
 
         public RoadMap ViewRoadMap()
-        {
-            return roadMapService.GenerateForUser(user);
-        }
+            => _roadMapService.GenerateForUser(_currentUser);
 
         public List<User> GetAllUsers()
-    => userService.GetAllUsers();
+            => _userService.GetAllUsers();
 
-        public string FullName => user.FullName;
-        public DateTime EntryDate => user.EntryDate;
-        public DateTime? RegistrationDate => user.RegistrationDate;
-        public DateTime? PatentIssueDate => user.PatentIssueDate;
-        public string Country => user.Country;
-        public bool Qualification => user.Qualification;
-        public bool IsInProgram => user.IsInProgram;
-        public bool WasMigrant => user.WasMigrant;
-        public bool HasWorkPermit => user.HasWorkPermit;
-        public bool HasPatent => user.HasPatent;
-        public string EntryGoal => user.EntryGoal;
+
+        public bool AnyOperatorExists()
+            => _accountService.HasAnyOperator();
+
+        public bool RegisterOperator(string username, string password, out string error)
+        {
+            error = null;
+            if (AnyOperatorExists())
+            {
+                error = "Оператор уже зарегистрирован";
+                return false;
+            }
+
+            try
+            {
+                _currentOperatorAccount = _accountService.RegisterOperatorOrMigrant(
+                    username, password, "Operator"
+                );
+                return true;
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message;
+                return false;
+            }
+        }
+
+        public bool LoginOperator(string username, string password, out string error)
+        {
+            error = null;
+            var acct = _accountService.AuthenticateAccount(username, password);
+            if (acct == null || acct.Role != "Operator")
+            {
+                error = "Неверный логин или пароль оператора";
+                return false;
+            }
+            _currentOperatorAccount = acct;
+            return true;
+        }
+
+        public int CurrentOperatorUserId => _currentOperatorAccount?.UserId ?? 0;
+
+
+        public string FullName => _currentUser?.FullName ?? "";
+        public DateTime EntryDate => _currentUser.EntryDate;
+        public DateTime? RegistrationDate => _currentUser.RegistrationDate;
+        public DateTime? PatentIssueDate => _currentUser.PatentIssueDate;
+        public string Country => _currentUser?.Country ?? "";
+        public bool Qualification => _currentUser.Qualification;
+        public bool IsInProgram => _currentUser.IsInProgram;
+        public bool WasMigrant => _currentUser.WasMigrant;
+        public bool HasWorkPermit => _currentUser.HasWorkPermit;
+        public bool HasPatent => _currentUser.HasPatent;
+        public string EntryGoal => _currentUser?.EntryGoal ?? "";
     }
 }
