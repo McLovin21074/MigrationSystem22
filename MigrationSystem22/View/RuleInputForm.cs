@@ -31,16 +31,16 @@ namespace MigrationSystem22.View
             numericDeadlineDays.Value = dDays;
 
             var fields = controller.AvailableFields
-                          .Select(f => new {
-                              Key = f,
-                              Value = controller.GetFieldDefinition(f).DisplayName
-                          })
-                          .ToList();
+                .Select(f => new { Key = f, Value = controller.GetFieldDefinition(f).DisplayName })
+                .ToList();
+
+            comboBoxField.SelectedIndexChanged += comboBoxField_SelectedIndexChanged;
             comboBoxField.DataSource = fields;
             comboBoxField.DisplayMember = "Value";
             comboBoxField.ValueMember = "Key";
-            comboBoxField.SelectedIndexChanged += comboBoxField_SelectedIndexChanged;
             comboBoxField.SelectedIndex = 0;
+
+            ApplyFieldDefinition(comboBoxField.SelectedValue.ToString());
 
             comboBoxGroupSelector.Items.Clear();
             for (int i = 0; i < controller.Groups.Count; i++)
@@ -123,14 +123,14 @@ namespace MigrationSystem22.View
         {
             var w = textBoxWhatToGet.Text.Trim();
             var ins = textBoxInstruction.Text.Trim();
-
             bool hasConditions = controller.Groups.Any(g => g.Count > 0);
+
             if (string.IsNullOrEmpty(w)
                 || string.IsNullOrEmpty(ins)
                 || !hasConditions)
             {
                 MessageBox.Show(
-                    "Нельзя сохранять пустое правило. Нужно заполнить поля «Что нужно получить», «Инструкция» и добавьте хотя бы одно условие.",
+                    "Нельзя сохранять пустое правило. Нужно заполнить поля «Что нужно получить», «Инструкция» и добавить хотя бы одно условие.",
                     "Ошибка валидации",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning
@@ -141,16 +141,17 @@ namespace MigrationSystem22.View
             controller.SetMetadata(w, ins);
 
             if (!Enum.TryParse<ControlDateType>(
-                    comboBoxDeadlineEvent.SelectedItem.ToString(),
-                    out var ev))
+                comboBoxDeadlineEvent.SelectedItem.ToString(),
+                out var ev))
             {
-                MessageBox.Show("Неверное событие отсчёта");
+                MessageBox.Show("Неверное событие отсчёта", "Ошибка",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             controller.SetDeadline(ev, (int)numericDeadlineDays.Value);
 
             controller.Save();
-            MessageBox.Show("Правило сохранено!");
+            MessageBox.Show("Правило сохранено!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Close();
         }
 
@@ -167,19 +168,23 @@ namespace MigrationSystem22.View
             }
 
             var groups = controller.Groups;
-            if (groups == null) return;
             for (int gi = 0; gi < groups.Count; gi++)
+            {
                 for (int ci = 0; ci < groups[gi].Count; ci++)
                 {
                     var c = groups[gi][ci];
                     var item = new ListViewItem($"Группа {gi + 1}")
-                    { Tag = Tuple.Create(gi, ci) };
+                    {
+                        Tag = Tuple.Create(gi, ci)
+                    };
+
                     var disp = controller.GetFieldDefinition(c.FieldName).DisplayName;
                     item.SubItems.Add(disp);
                     item.SubItems.Add(c.Operator);
                     item.SubItems.Add(c.Value);
                     listViewConditions.Items.Add(item);
                 }
+            }
 
             listViewConditions.AutoResizeColumns(
                 ColumnHeaderAutoResizeStyle.HeaderSize

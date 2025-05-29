@@ -15,34 +15,34 @@ namespace MigrationSystem22.View
     {
         private readonly UserController userController = new();
         private readonly int? userId;
+        private readonly bool forceDetailsTab;
 
-        public UserInputForm(int? userId = null)
+        public UserInputForm(int? userId = null, bool forceDetailsTab = false)
         {
             InitializeComponent();
 
-
             this.userId = userId;
+            this.forceDetailsTab = forceDetailsTab;
 
-            Load += UserInputForm_Load;
+            this.Load += UserInputForm_Load;
             tabControl1.SelectedIndexChanged += TabControl1_SelectedIndexChanged;
             checkBoxWasMigrant.CheckedChanged += CheckBoxWasMigrant_CheckedChanged;
             checkBoxHasPatent.CheckedChanged += CheckBoxHasPatent_CheckedChanged;
         }
-
         private void UserInputForm_Load(object sender, EventArgs e)
         {
             comboBoxCountry.Items.AddRange(new[]
             {
-                "Азербайджан","Армения","Беларусь","Казахстан","Киргизия",
-                "Молдова","Россия","Таджикистан","Узбекистан", "Украина", "Другое"
-            });
+        "Азербайджан","Армения","Беларусь","Казахстан","Киргизия",
+        "Молдова","Россия","Таджикистан","Узбекистан","Украина","Другое"
+    });
             comboBoxCountry.SelectedIndex = 0;
 
             comboBoxEntryGoal.Items.AddRange(new[]
             {
-                "Трудовая деятельность","Учеба","Воссоединение семьи",
-                "Гуманитарные цели","Туризм","Иное"
-            });
+        "Трудовая деятельность","Учёба","Воссоединение семьи",
+        "Гуманитарные цели","Туризм","Иное"
+    });
             comboBoxEntryGoal.SelectedIndex = 0;
 
             if (userId.HasValue)
@@ -57,22 +57,6 @@ namespace MigrationSystem22.View
 
                 textBoxFullName.Text = userController.FullName;
                 dateTimePickerEntryDate.Value = userController.EntryDate.ToLocalTime();
-
-                checkBoxWasMigrant.Checked = userController.WasMigrant;
-                dateTimePickerRegistrationDate.Enabled = userController.WasMigrant;
-                if (userController.RegistrationDate.HasValue)
-                    dateTimePickerRegistrationDate.Value = userController.RegistrationDate.Value.ToLocalTime();
-
-                checkBoxHasPatent.Checked = userController.HasPatent;
-                dateTimePickerPatentIssueDate.Enabled = userController.HasPatent;
-                if (userController.PatentIssueDate.HasValue)
-                    dateTimePickerPatentIssueDate.Value = userController.PatentIssueDate.Value.ToLocalTime();
-
-                comboBoxCountry.SelectedItem = userController.Country;
-                checkBoxQualification.Checked = userController.Qualification;
-                checkBoxIsInProgram.Checked = userController.IsInProgram;
-                checkBoxHasWorkPermit.Checked = userController.HasWorkPermit;
-                comboBoxEntryGoal.SelectedItem = userController.EntryGoal;
             }
             else
             {
@@ -82,7 +66,18 @@ namespace MigrationSystem22.View
                 dateTimePickerRegistrationDate.Enabled = false;
                 dateTimePickerPatentIssueDate.Enabled = false;
             }
+
+            if (!userId.HasValue || forceDetailsTab)
+            {
+                tabControl1.SelectedIndex = 0;
+            }
+            else
+            {
+                tabControl1.SelectedIndex = 1;
+            }
         }
+
+
 
         private void CheckBoxWasMigrant_CheckedChanged(object? sender, EventArgs e)
         {

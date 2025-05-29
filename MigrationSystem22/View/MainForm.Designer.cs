@@ -37,7 +37,7 @@
             buttonUser.TabIndex = 1;
             buttonUser.Text = "Войти как мигрант";
             buttonUser.UseVisualStyleBackColor = true;
-            buttonUser.Click += buttonUser_Click;
+            buttonUser.Click += buttonMigrant_Click;
             // 
             // MainForm
             // 
