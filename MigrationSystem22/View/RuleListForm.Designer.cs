@@ -17,6 +17,7 @@
             // 
             // dataGridView1
             // 
+            dataGridView1.AllowUserToAddRows = false;
             dataGridView1.ColumnHeadersHeight = 29;
             dataGridView1.Location = new Point(12, 12);
             dataGridView1.Name = "dataGridView1";

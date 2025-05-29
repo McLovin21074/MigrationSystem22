@@ -42,6 +42,8 @@ namespace MigrationSystem22.View
             comboBoxField.SelectedIndexChanged += comboBoxField_SelectedIndexChanged;
             comboBoxField.SelectedIndex = 0;
 
+            ApplyFieldDefinition(comboBoxField.SelectedValue.ToString());
+
             comboBoxGroupSelector.Items.Clear();
             for (int i = 0; i < controller.Groups.Count; i++)
                 comboBoxGroupSelector.Items.Add($"Группа {i + 1}");
