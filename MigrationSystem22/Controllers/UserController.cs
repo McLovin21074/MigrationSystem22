@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.VisualBasic.ApplicationServices;
 using MigrationSystem22.Models;
 using MigrationSystem22.Services;
 
@@ -11,14 +12,14 @@ namespace MigrationSystem22.Controllers
         private readonly RoadMapService _roadMapService = new RoadMapService();
         private readonly AccountService _accountService = new AccountService();
 
-        private User _currentUser;
+        private MigrationSystem22.Models.User _currentUser;
 
         private AccountEntity _currentOperatorAccount;
 
 
         public void NewUser()
         {
-            _currentUser = new User();
+            _currentUser = new MigrationSystem22.Models.User();
         }
 
         public bool LoadUser(int id, out string error)
@@ -119,7 +120,7 @@ namespace MigrationSystem22.Controllers
         public RoadMap ViewRoadMap()
             => _roadMapService.GenerateForUser(_currentUser);
 
-        public List<User> GetAllUsers()
+        public List<MigrationSystem22.Models.User> GetAllUsers()
             => _userService.GetAllUsers();
 
 
@@ -167,5 +168,14 @@ namespace MigrationSystem22.Controllers
 
         public string FullName => _currentUser?.FullName ?? "";
         public DateTime EntryDate => _currentUser.EntryDate;
+        public DateTime? RegistrationDate => _currentUser.RegistrationDate;
+        public DateTime? PatentIssueDate => _currentUser.PatentIssueDate;
+        public string Country => _currentUser.Country;
+        public bool Qualification => _currentUser.Qualification;
+        public bool IsInProgram => _currentUser.IsInProgram;
+        public bool WasMigrant => _currentUser.WasMigrant;
+        public bool HasWorkPermit => _currentUser.HasWorkPermit;
+        public bool HasPatent => _currentUser.HasPatent;
+        public string EntryGoal => _currentUser.EntryGoal;
     }
 }

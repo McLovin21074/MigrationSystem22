@@ -57,6 +57,14 @@ namespace MigrationSystem22.View
 
                 textBoxFullName.Text = userController.FullName;
                 dateTimePickerEntryDate.Value = userController.EntryDate.ToLocalTime();
+                comboBoxCountry.SelectedItem = userController.Country;
+                comboBoxEntryGoal.SelectedItem = userController.EntryGoal;
+
+                checkBoxQualification.Checked = userController.Qualification;
+                checkBoxIsInProgram.Checked = userController.IsInProgram;
+                checkBoxWasMigrant.Checked = userController.WasMigrant;
+                checkBoxHasWorkPermit.Checked = userController.HasWorkPermit;
+                checkBoxHasPatent.Checked = userController.HasPatent;
             }
             else
             {
