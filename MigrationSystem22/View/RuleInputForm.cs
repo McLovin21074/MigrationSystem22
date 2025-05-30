@@ -23,8 +23,17 @@ namespace MigrationSystem22.View
             textBoxWhatToGet.Text = controller.DraftWhatToGet;
             textBoxInstruction.Text = controller.DraftInstruction;
 
-            comboBoxDeadlineEvent.Items.AddRange(Enum.GetNames(typeof(ControlDateType)));
-            comboBoxDeadlineEvent.SelectedItem = controller.DraftDeadlineEvent.ToString();
+            var items = new[]
+            {
+                new { Value = ControlDateType.entry_date,        Text = "Дата въезда" },
+                new { Value = ControlDateType.registration_date, Text = "Дата регистрации" },
+                new { Value = ControlDateType.patent_issue_date, Text = "Дата выдачи патента" }
+            };
+
+            comboBoxDeadlineEvent.DataSource = items;
+            comboBoxDeadlineEvent.DisplayMember = "Text";
+            comboBoxDeadlineEvent.ValueMember = "Value";
+            comboBoxDeadlineEvent.SelectedValue = controller.DraftDeadlineEvent; comboBoxDeadlineEvent.SelectedItem = controller.DraftDeadlineEvent.ToString();
             var dDays = controller.DraftDeadlineDays;
             if (dDays < numericDeadlineDays.Minimum || dDays > numericDeadlineDays.Maximum)
                 dDays = (int)numericDeadlineDays.Minimum;
@@ -140,9 +149,7 @@ namespace MigrationSystem22.View
 
             controller.SetMetadata(w, ins);
 
-            if (!Enum.TryParse<ControlDateType>(
-                comboBoxDeadlineEvent.SelectedItem.ToString(),
-                out var ev))
+            if (comboBoxDeadlineEvent.SelectedValue is not ControlDateType ev)
             {
                 MessageBox.Show("Неверное событие отсчёта", "Ошибка",
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);

@@ -36,9 +36,9 @@
 
             // ==== tabPageLogin ====
             this.tabPageLogin.Text = "Вход";
-            this.txtLoginUsername = new TextBox { PlaceholderText = "Логин", Top = 20, Left = 20, Width = 200 };
-            this.txtLoginPassword = new TextBox { PlaceholderText = "Пароль", Top = 60, Left = 20, Width = 200, UseSystemPasswordChar = true };
-            this.btnLogin = new Button { Text = "Войти", Top = 100, Left = 20, Width = 200 };
+            this.txtLoginUsername = new TextBox { PlaceholderText = "Логин", Top = 20, Left = 20, Width = 240 };
+            this.txtLoginPassword = new TextBox { PlaceholderText = "Пароль", Top = 60, Left = 20, Width = 240, UseSystemPasswordChar = true };
+            this.btnLogin = new Button { Text = "Войти", Top = 100, Left = 20, Width = 240, Height = 36 };
             this.btnLogin.Click += new EventHandler(this.btnLogin_Click);
 
             this.tabPageLogin.Controls.Add(this.txtLoginUsername);
@@ -47,9 +47,9 @@
 
             // ==== tabPageRegister ====
             this.tabPageRegister.Text = "Регистрация";
-            this.txtRegUsername = new TextBox { PlaceholderText = "Логин", Top = 20, Left = 20, Width = 200 };
-            this.txtRegPassword = new TextBox { PlaceholderText = "Пароль", Top = 60, Left = 20, Width = 200, UseSystemPasswordChar = true };
-            this.btnRegister = new Button { Text = "Создать аккаунт", Top = 100, Left = 20, Width = 200 };
+            this.txtRegUsername = new TextBox { PlaceholderText = "Логин", Top = 20, Left = 20, Width = 240 };
+            this.txtRegPassword = new TextBox { PlaceholderText = "Пароль", Top = 60, Left = 20, Width = 240, UseSystemPasswordChar = true };
+            this.btnRegister = new Button { Text = "Создать аккаунт", Top = 100, Left = 20, Width = 240, Height = 36 };
             this.btnRegister.Click += new EventHandler(this.btnRegister_Click);
 
             this.tabPageRegister.Controls.Add(this.txtRegUsername);
@@ -57,7 +57,7 @@
             this.tabPageRegister.Controls.Add(this.btnRegister);
 
             // ==== LoginForm ====
-            this.ClientSize = new System.Drawing.Size(260, 170);
+            this.ClientSize = new System.Drawing.Size(300, 200);
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

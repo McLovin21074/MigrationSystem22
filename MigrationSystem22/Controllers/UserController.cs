@@ -167,14 +167,5 @@ namespace MigrationSystem22.Controllers
 
         public string FullName => _currentUser?.FullName ?? "";
         public DateTime EntryDate => _currentUser.EntryDate;
-        public DateTime? RegistrationDate => _currentUser.RegistrationDate;
-        public DateTime? PatentIssueDate => _currentUser.PatentIssueDate;
-        public string Country => _currentUser?.Country ?? "";
-        public bool Qualification => _currentUser.Qualification;
-        public bool IsInProgram => _currentUser.IsInProgram;
-        public bool WasMigrant => _currentUser.WasMigrant;
-        public bool HasWorkPermit => _currentUser.HasWorkPermit;
-        public bool HasPatent => _currentUser.HasPatent;
-        public string EntryGoal => _currentUser?.EntryGoal ?? "";
     }
 }

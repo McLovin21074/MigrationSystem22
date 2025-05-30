@@ -19,17 +19,15 @@ namespace MigrationSystem22.View
 
         private void InitializeComponent()
         {
-            this.txtUsername = new TextBox { Top = 30, Left = 20, Width = 200, PlaceholderText = "Логин" };
-            this.txtPassword = new TextBox { Top = 70, Left = 20, Width = 200, UseSystemPasswordChar = true, PlaceholderText = "Пароль" };
-            this.btnLoginOperator = new Button { Top = 110, Left = 20, Width = 200, Text = "Войти" };
-            this.btnRegisterOperator = new Button { Top = 150, Left = 20, Width = 200, Text = "Создать оператора" };
-            this.lblUser = new Label { Top = 10, Left = 20, Text = "Логин:" };
-            this.lblPass = new Label { Top = 50, Left = 20, Text = "Пароль:" };
+            this.txtUsername = new TextBox { Top = 35, Left = 30, Width = 240, Height = 36, PlaceholderText = "Логин" };
+            this.txtPassword = new TextBox { Top = 70, Left = 30, Width = 240, Height = 36, UseSystemPasswordChar = true, PlaceholderText = "Пароль" };
+            this.btnLoginOperator = new Button { Top = 110, Left = 30, Width = 240, Height = 36, Text = "Войти" };
+            this.btnRegisterOperator = new Button { Top = 160, Left = 30, Width = 240, Height = 36, Text = "Создать оператора" };
 
             this.btnLoginOperator.Click += new EventHandler(this.btnLoginOperator_Click);
             this.btnRegisterOperator.Click += new EventHandler(this.btnRegisterOperator_Click);
 
-            this.ClientSize = new System.Drawing.Size(250, 200);
+            this.ClientSize = new System.Drawing.Size(300, 200);
             this.Controls.AddRange(new Control[]
             {
                 lblUser, txtUsername,
