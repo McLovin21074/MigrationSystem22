@@ -2,237 +2,285 @@
 {
     partial class UserInputForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPageData;
+        private System.Windows.Forms.TabPage tabPageRoadMap;
+        private System.Windows.Forms.DataGridView dataGridViewRoadMap;
+        private System.Windows.Forms.Label labelFullName;
+        private System.Windows.Forms.TextBox textBoxFullName;
+        private System.Windows.Forms.Label labelEntryDate;
+        private System.Windows.Forms.DateTimePicker dateTimePickerEntryDate;
+        private System.Windows.Forms.Label labelRegistrationDate;
+        private System.Windows.Forms.DateTimePicker dateTimePickerRegistrationDate;
+        private System.Windows.Forms.Label labelPatentIssueDate;
+        private System.Windows.Forms.DateTimePicker dateTimePickerPatentIssueDate;
+        private System.Windows.Forms.Label labelCountry;
+        private System.Windows.Forms.ComboBox comboBoxCountry;
+        private System.Windows.Forms.CheckBox checkBoxQualification;
+        private System.Windows.Forms.CheckBox checkBoxIsInProgram;
+        private System.Windows.Forms.CheckBox checkBoxWasMigrant;
+        private System.Windows.Forms.CheckBox checkBoxHasWorkPermit;
+        private System.Windows.Forms.CheckBox checkBoxHasPatent;
+        private System.Windows.Forms.Label labelEntryGoal;
+        private System.Windows.Forms.ComboBox comboBoxEntryGoal;
+        private System.Windows.Forms.Button buttonSave;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-            {
+            if (disposing && components != null)
                 components.Dispose();
-            }
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            labelEntryDate = new Label();
-            dateTimePickerEntryDate = new DateTimePicker();
-            labelCountry = new Label();
-            checkBoxQualification = new CheckBox();
-            checkBoxIsInProgram = new CheckBox();
-            checkBoxWasMigrant = new CheckBox();
-            checkBoxHasWorkPermit = new CheckBox();
-            checkBoxHasPatent = new CheckBox();
-            buttonSave = new Button();
-            comboBoxCountry = new ComboBox();
-            comboBoxEntryGoal = new ComboBox();
-            labelEntryGoal = new Label();
-            dateTimePickerRegistrationDate = new DateTimePicker();
-            dateTimePickerPatentIssueDate = new DateTimePicker();
-            label1 = new Label();
-            label2 = new Label();
-            SuspendLayout();
+            components = new System.ComponentModel.Container();
+
+            // TabControl
+            tabControl1 = new System.Windows.Forms.TabControl();
+            tabPageData = new System.Windows.Forms.TabPage();
+            tabPageRoadMap = new System.Windows.Forms.TabPage();
+            dataGridViewRoadMap = new System.Windows.Forms.DataGridView();
+
+            // Full Name
+            labelFullName = new System.Windows.Forms.Label();
+            textBoxFullName = new System.Windows.Forms.TextBox();
+
+            // Entry Date controls
+            labelEntryDate = new System.Windows.Forms.Label();
+            dateTimePickerEntryDate = new System.Windows.Forms.DateTimePicker();
+
+            // Registration Date
+            labelRegistrationDate = new System.Windows.Forms.Label();
+            dateTimePickerRegistrationDate = new System.Windows.Forms.DateTimePicker();
+
+            // Patent Issue Date
+            labelPatentIssueDate = new System.Windows.Forms.Label();
+            dateTimePickerPatentIssueDate = new System.Windows.Forms.DateTimePicker();
+
+            // Country
+            labelCountry = new System.Windows.Forms.Label();
+            comboBoxCountry = new System.Windows.Forms.ComboBox();
+
+            // Checkboxes
+            checkBoxQualification = new System.Windows.Forms.CheckBox();
+            checkBoxIsInProgram = new System.Windows.Forms.CheckBox();
+            checkBoxWasMigrant = new System.Windows.Forms.CheckBox();
+            checkBoxHasWorkPermit = new System.Windows.Forms.CheckBox();
+            checkBoxHasPatent = new System.Windows.Forms.CheckBox();
+
+            // Entry Goal
+            labelEntryGoal = new System.Windows.Forms.Label();
+            comboBoxEntryGoal = new System.Windows.Forms.ComboBox();
+
+            // Save button
+            buttonSave = new System.Windows.Forms.Button();
+
+            // 
+            // tabControl1
+            // 
+            tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            tabControl1.Controls.Add(tabPageData);
+            tabControl1.Controls.Add(tabPageRoadMap);
+
+            // 
+            // tabPageData
+            // 
+            tabPageData.Text = "Данные";
+            tabPageData.Padding = new System.Windows.Forms.Padding(10);
+            tabPageData.AutoScroll = true;
+            tabPageData.Controls.AddRange(new System.Windows.Forms.Control[]
+            {
+                labelFullName, textBoxFullName,
+                labelEntryDate, dateTimePickerEntryDate,
+                labelRegistrationDate, dateTimePickerRegistrationDate,
+                labelPatentIssueDate, dateTimePickerPatentIssueDate,
+                labelCountry, comboBoxCountry,
+                checkBoxQualification, checkBoxIsInProgram,
+                checkBoxWasMigrant, checkBoxHasWorkPermit,
+                checkBoxHasPatent,
+                labelEntryGoal, comboBoxEntryGoal,
+                buttonSave
+            });
+
+            // 
+            // labelFullName
+            // 
+            labelFullName.AutoSize = true;
+            labelFullName.Location = new System.Drawing.Point(20, 20);
+            labelFullName.Name = "labelFullName";
+            labelFullName.Size = new System.Drawing.Size(46, 20);
+            labelFullName.Text = "ФИО";
+
+            // 
+            // textBoxFullName
+            // 
+            textBoxFullName.Location = new System.Drawing.Point(20, 50);
+            textBoxFullName.Name = "textBoxFullName";
+            textBoxFullName.Size = new System.Drawing.Size(300, 27);
+
             // 
             // labelEntryDate
             // 
             labelEntryDate.AutoSize = true;
-            labelEntryDate.Location = new Point(57, 19);
+            labelEntryDate.Location = new System.Drawing.Point(20, 100);
             labelEntryDate.Name = "labelEntryDate";
-            labelEntryDate.Size = new Size(93, 20);
-            labelEntryDate.TabIndex = 0;
+            labelEntryDate.Size = new System.Drawing.Size(93, 20);
             labelEntryDate.Text = "Дата въезда";
+
             // 
             // dateTimePickerEntryDate
             // 
-            dateTimePickerEntryDate.Location = new Point(57, 62);
+            dateTimePickerEntryDate.Location = new System.Drawing.Point(20, 130);
             dateTimePickerEntryDate.Name = "dateTimePickerEntryDate";
-            dateTimePickerEntryDate.Size = new Size(250, 27);
-            dateTimePickerEntryDate.TabIndex = 1;
+            dateTimePickerEntryDate.Size = new System.Drawing.Size(200, 27);
+
+            // 
+            // labelRegistrationDate
+            // 
+            labelRegistrationDate.AutoSize = true;
+            labelRegistrationDate.Location = new System.Drawing.Point(240, 100);
+            labelRegistrationDate.Name = "labelRegistrationDate";
+            labelRegistrationDate.Size = new System.Drawing.Size(134, 20);
+            labelRegistrationDate.Text = "Дата регистрации";
+
+            // 
+            // dateTimePickerRegistrationDate
+            // 
+            dateTimePickerRegistrationDate.Location = new System.Drawing.Point(240, 130);
+            dateTimePickerRegistrationDate.Name = "dateTimePickerRegistrationDate";
+            dateTimePickerRegistrationDate.Size = new System.Drawing.Size(200, 27);
+
+            // 
+            // labelPatentIssueDate
+            // 
+            labelPatentIssueDate.AutoSize = true;
+            labelPatentIssueDate.Location = new System.Drawing.Point(460, 100);
+            labelPatentIssueDate.Name = "labelPatentIssueDate";
+            labelPatentIssueDate.Size = new System.Drawing.Size(148, 20);
+            labelPatentIssueDate.Text = "Дата выдачи патента";
+
+            // 
+            // dateTimePickerPatentIssueDate
+            // 
+            dateTimePickerPatentIssueDate.Location = new System.Drawing.Point(460, 130);
+            dateTimePickerPatentIssueDate.Name = "dateTimePickerPatentIssueDate";
+            dateTimePickerPatentIssueDate.Size = new System.Drawing.Size(200, 27);
+
             // 
             // labelCountry
             // 
             labelCountry.AutoSize = true;
-            labelCountry.Location = new Point(57, 122);
+            labelCountry.Location = new System.Drawing.Point(20, 180);
             labelCountry.Name = "labelCountry";
-            labelCountry.Size = new Size(58, 20);
-            labelCountry.TabIndex = 2;
+            labelCountry.Size = new System.Drawing.Size(58, 20);
             labelCountry.Text = "Страна";
+
+            // 
+            // comboBoxCountry
+            // 
+            comboBoxCountry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            comboBoxCountry.Location = new System.Drawing.Point(20, 210);
+            comboBoxCountry.Name = "comboBoxCountry";
+            comboBoxCountry.Size = new System.Drawing.Size(200, 28);
+
             // 
             // checkBoxQualification
             // 
             checkBoxQualification.AutoSize = true;
-            checkBoxQualification.Location = new Point(63, 206);
+            checkBoxQualification.Location = new System.Drawing.Point(20, 260);
             checkBoxQualification.Name = "checkBoxQualification";
-            checkBoxQualification.Size = new Size(182, 24);
-            checkBoxQualification.TabIndex = 4;
+            checkBoxQualification.Size = new System.Drawing.Size(182, 24);
             checkBoxQualification.Text = "Квалифицированный";
-            checkBoxQualification.UseVisualStyleBackColor = true;
+
             // 
             // checkBoxIsInProgram
             // 
             checkBoxIsInProgram.AutoSize = true;
-            checkBoxIsInProgram.Location = new Point(65, 250);
+            checkBoxIsInProgram.Location = new System.Drawing.Point(20, 290);
             checkBoxIsInProgram.Name = "checkBoxIsInProgram";
-            checkBoxIsInProgram.Size = new Size(203, 24);
-            checkBoxIsInProgram.TabIndex = 5;
+            checkBoxIsInProgram.Size = new System.Drawing.Size(203, 24);
             checkBoxIsInProgram.Text = "Участник госпрограммы";
-            checkBoxIsInProgram.UseVisualStyleBackColor = true;
+
             // 
             // checkBoxWasMigrant
             // 
             checkBoxWasMigrant.AutoSize = true;
-            checkBoxWasMigrant.Location = new Point(63, 287);
+            checkBoxWasMigrant.Location = new System.Drawing.Point(20, 320);
             checkBoxWasMigrant.Name = "checkBoxWasMigrant";
-            checkBoxWasMigrant.Size = new Size(121, 24);
-            checkBoxWasMigrant.TabIndex = 6;
+            checkBoxWasMigrant.Size = new System.Drawing.Size(121, 24);
             checkBoxWasMigrant.Text = "Был на учете";
-            checkBoxWasMigrant.UseVisualStyleBackColor = true;
+
             // 
             // checkBoxHasWorkPermit
             // 
             checkBoxHasWorkPermit.AutoSize = true;
-            checkBoxHasWorkPermit.Location = new Point(63, 322);
+            checkBoxHasWorkPermit.Location = new System.Drawing.Point(20, 350);
             checkBoxHasWorkPermit.Name = "checkBoxHasWorkPermit";
-            checkBoxHasWorkPermit.Size = new Size(190, 24);
-            checkBoxHasWorkPermit.TabIndex = 7;
+            checkBoxHasWorkPermit.Size = new System.Drawing.Size(190, 24);
             checkBoxHasWorkPermit.Text = "Разрешение на работу";
-            checkBoxHasWorkPermit.UseVisualStyleBackColor = true;
+
             // 
             // checkBoxHasPatent
             // 
             checkBoxHasPatent.AutoSize = true;
-            checkBoxHasPatent.Location = new Point(71, 365);
+            checkBoxHasPatent.Location = new System.Drawing.Point(20, 380);
             checkBoxHasPatent.Name = "checkBoxHasPatent";
-            checkBoxHasPatent.Size = new Size(79, 24);
-            checkBoxHasPatent.TabIndex = 8;
+            checkBoxHasPatent.Size = new System.Drawing.Size(79, 24);
             checkBoxHasPatent.Text = "Патент";
-            checkBoxHasPatent.UseVisualStyleBackColor = true;
-            // 
-            // buttonSave
-            // 
-            buttonSave.Location = new Point(71, 477);
-            buttonSave.Name = "buttonSave";
-            buttonSave.Size = new Size(94, 29);
-            buttonSave.TabIndex = 9;
-            buttonSave.Text = "Сохранить";
-            buttonSave.UseVisualStyleBackColor = true;
-            buttonSave.Click += buttonSave_Click;
-            // 
-            // comboBoxCountry
-            // 
-            comboBoxCountry.FormattingEnabled = true;
-            comboBoxCountry.Location = new Point(64, 153);
-            comboBoxCountry.Name = "comboBoxCountry";
-            comboBoxCountry.Size = new Size(151, 28);
-            comboBoxCountry.TabIndex = 10;
-            // 
-            // comboBoxEntryGoal
-            // 
-            comboBoxEntryGoal.FormattingEnabled = true;
-            comboBoxEntryGoal.Location = new Point(63, 424);
-            comboBoxEntryGoal.Name = "comboBoxEntryGoal";
-            comboBoxEntryGoal.Size = new Size(151, 28);
-            comboBoxEntryGoal.TabIndex = 11;
+
             // 
             // labelEntryGoal
             // 
             labelEntryGoal.AutoSize = true;
-            labelEntryGoal.Location = new Point(72, 397);
+            labelEntryGoal.Location = new System.Drawing.Point(20, 420);
             labelEntryGoal.Name = "labelEntryGoal";
-            labelEntryGoal.Size = new Size(96, 20);
-            labelEntryGoal.TabIndex = 12;
+            labelEntryGoal.Size = new System.Drawing.Size(96, 20);
             labelEntryGoal.Text = "Цель въезда";
+
             // 
-            // dateTimePickerRegistrationDate
+            // comboBoxEntryGoal
             // 
-            dateTimePickerRegistrationDate.Location = new Point(394, 422);
-            dateTimePickerRegistrationDate.Name = "dateTimePickerRegistrationDate";
-            dateTimePickerRegistrationDate.Size = new Size(250, 27);
-            dateTimePickerRegistrationDate.TabIndex = 13;
+            comboBoxEntryGoal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            comboBoxEntryGoal.Location = new System.Drawing.Point(20, 450);
+            comboBoxEntryGoal.Name = "comboBoxEntryGoal";
+            comboBoxEntryGoal.Size = new System.Drawing.Size(200, 28);
+
             // 
-            // dateTimePickerPatentIssueDate
+            // buttonSave
             // 
-            dateTimePickerPatentIssueDate.Location = new Point(712, 422);
-            dateTimePickerPatentIssueDate.Name = "dateTimePickerPatentIssueDate";
-            dateTimePickerPatentIssueDate.Size = new Size(250, 27);
-            dateTimePickerPatentIssueDate.TabIndex = 14;
+            buttonSave.Location = new System.Drawing.Point(20, 500);
+            buttonSave.Name = "buttonSave";
+            buttonSave.Size = new System.Drawing.Size(94, 29);
+            buttonSave.Text = "Сохранить";
+            buttonSave.UseVisualStyleBackColor = true;
+            buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+
             // 
-            // label1
+            // tabPageRoadMap
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(403, 382);
-            label1.Name = "label1";
-            label1.Size = new Size(134, 20);
-            label1.TabIndex = 15;
-            label1.Text = "Дата регистрации";
-            label1.Click += label1_Click;
+            tabPageRoadMap.Text = "Дорожная карта";
+            tabPageRoadMap.Padding = new System.Windows.Forms.Padding(10);
+            dataGridViewRoadMap.Dock = System.Windows.Forms.DockStyle.Fill;
+            dataGridViewRoadMap.ReadOnly = true;
+            dataGridViewRoadMap.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            tabPageRoadMap.Controls.Add(dataGridViewRoadMap);
+
             // 
-            // label2
+            // dataGridViewRoadMap
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(720, 376);
-            label2.Name = "label2";
-            label2.Size = new Size(178, 20);
-            label2.TabIndex = 16;
-            label2.Text = "Дата получения патента";
+            dataGridViewRoadMap.Name = "dataGridViewRoadMap";
+            dataGridViewRoadMap.Size = new System.Drawing.Size(660, 440);
+
             // 
             // UserInputForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1265, 547);
-            Controls.Add(label2);
-            Controls.Add(label1);
-            Controls.Add(dateTimePickerPatentIssueDate);
-            Controls.Add(dateTimePickerRegistrationDate);
-            Controls.Add(labelEntryGoal);
-            Controls.Add(comboBoxEntryGoal);
-            Controls.Add(comboBoxCountry);
-            Controls.Add(buttonSave);
-            Controls.Add(checkBoxHasPatent);
-            Controls.Add(checkBoxHasWorkPermit);
-            Controls.Add(checkBoxWasMigrant);
-            Controls.Add(checkBoxIsInProgram);
-            Controls.Add(checkBoxQualification);
-            Controls.Add(labelCountry);
-            Controls.Add(dateTimePickerEntryDate);
-            Controls.Add(labelEntryDate);
-            Name = "UserInputForm";
-            Text = "UserInputForm";
-            ResumeLayout(false);
-            PerformLayout();
+            this.Controls.Add(tabControl1);
+            this.Text = "Панель мигранта";
+            this.ClientSize = new System.Drawing.Size(700, 580);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
         }
-
-        #endregion
-
-        private Label labelEntryDate;
-        private DateTimePicker dateTimePickerEntryDate;
-        private Label labelCountry;
-        private CheckBox checkBoxQualification;
-        private CheckBox checkBoxIsInProgram;
-        private CheckBox checkBoxWasMigrant;
-        private CheckBox checkBoxHasWorkPermit;
-        private CheckBox checkBoxHasPatent;
-        private Button buttonSave;
-        private ComboBox comboBoxCountry;
-        private ComboBox comboBoxEntryGoal;
-        private Label labelEntryGoal;
-        private DateTimePicker dateTimePickerRegistrationDate;
-        private DateTimePicker dateTimePickerPatentIssueDate;
-        private Label label1;
-        private Label label2;
     }
 }

@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using MigrationSystem22.Models;
+﻿using MigrationSystem22.Models;
 using MigrationSystem22.Services;
+using System.Data;
 
 namespace MigrationSystem22.Controllers
 {
@@ -76,6 +75,30 @@ namespace MigrationSystem22.Controllers
             else
                 svc.SaveDraft(draft);
         }
+
+        public DataTable GetRuleTable()
+        {
+            var dt = new DataTable();
+            dt.Columns.Add("RuleId", typeof(int));
+            dt.Columns.Add("WhatToGet", typeof(string));
+            dt.Columns.Add("Instruction", typeof(string));
+            dt.Columns.Add("DeadlineEvent", typeof(string));
+            dt.Columns.Add("DeadlineDays", typeof(int));
+
+            foreach (var r in svc.GetAllRules())
+            {
+                dt.Rows.Add(
+                    r.RuleId,
+                    r.WhatToGet,
+                    r.Instruction,
+                    r.DeadlineEvent.ToString(),
+                    r.DeadlineDays
+                );
+            }
+
+            return dt;
+        }
+
 
         public IReadOnlyList<List<RuleConditionEntity>> Groups => draft?.Groups;
         public IEnumerable<string> AvailableFields => FieldDefinitionProvider.Definitions.Keys;

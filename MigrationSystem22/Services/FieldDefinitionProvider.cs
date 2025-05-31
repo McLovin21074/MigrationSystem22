@@ -7,53 +7,54 @@ namespace MigrationSystem22.Services
         public static readonly Dictionary<string, FieldDefinition> Definitions
             = new()
             {
-                ["EntryDate"] = new FieldDefinition
-                {
-                    FieldType = typeof(DateTime),
-                    AllowedOperators = new[] { "=", "!=", ">", "<" },
-                    AllowedValues = null
-                },
                 ["Country"] = new FieldDefinition
                 {
                     FieldType = typeof(string),
-                    AllowedOperators = new[] { "=", "!=", "IN", "NOT IN" },
-                    AllowedValues = null
+                    AllowedOperators = new[] { "=", "!="},
+                    AllowedValues = null,
+                    DisplayName = "Гражданство"
                 },
                 ["EntryGoal"] = new FieldDefinition
                 {
                     FieldType = typeof(string),
-                    AllowedOperators = new[] { "=", "!=", "IN", "NOT IN" },
-                    AllowedValues = null
+                    AllowedOperators = new[] { "=", "!="},
+                    AllowedValues = null,
+                    DisplayName = "Цель въезда"
                 },
                 ["Qualification"] = new FieldDefinition
                 {
                     FieldType = typeof(bool),
                     AllowedOperators = new[] { "=", "!=" },
-                    AllowedValues = new[] { "True", "False" }
+                    AllowedValues = new[] { "True", "False" },
+                    DisplayName = "Высококвалифицирован"
                 },
                 ["IsInProgram"] = new FieldDefinition
                 {
                     FieldType = typeof(bool),
                     AllowedOperators = new[] { "=", "!=" },
-                    AllowedValues = new[] { "True", "False" }
+                    AllowedValues = new[] { "True", "False" },
+                    DisplayName = "Участие в гос. программе"
                 },
                 ["WasMigrant"] = new FieldDefinition
                 {
                     FieldType = typeof(bool),
                     AllowedOperators = new[] { "=", "!=" },
-                    AllowedValues = new[] { "True", "False" }
+                    AllowedValues = new[] { "True", "False" },
+                    DisplayName = "Был на миграционном учете"
                 },
                 ["HasPatent"] = new FieldDefinition
                 {
                     FieldType = typeof(bool),
                     AllowedOperators = new[] { "=", "!=" },
-                    AllowedValues = new[] { "True", "False" }
+                    AllowedValues = new[] { "True", "False" },
+                    DisplayName = "Есть ли патент"
                 },
                 ["HasWorkPermit"] = new FieldDefinition
                 {
                     FieldType = typeof(bool),
                     AllowedOperators = new[] { "=", "!=" },
-                    AllowedValues = new[] { "True", "False" }
+                    AllowedValues = new[] { "True", "False" },
+                    DisplayName = "Есть ли разрешение на работу"
                 }
             };
     }

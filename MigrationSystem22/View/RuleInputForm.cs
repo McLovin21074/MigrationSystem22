@@ -23,18 +23,33 @@ namespace MigrationSystem22.View
             textBoxWhatToGet.Text = controller.DraftWhatToGet;
             textBoxInstruction.Text = controller.DraftInstruction;
 
-            comboBoxDeadlineEvent.Items.AddRange(Enum.GetNames(typeof(ControlDateType)));
-            comboBoxDeadlineEvent.SelectedItem = controller.DraftDeadlineEvent.ToString();
+            var items = new[]
+            {
+                new { Value = ControlDateType.entry_date,        Text = "Дата въезда" },
+                new { Value = ControlDateType.registration_date, Text = "Дата регистрации" },
+                new { Value = ControlDateType.patent_issue_date, Text = "Дата выдачи патента" }
+            };
 
+            comboBoxDeadlineEvent.DataSource = items;
+            comboBoxDeadlineEvent.DisplayMember = "Text";
+            comboBoxDeadlineEvent.ValueMember = "Value";
+            comboBoxDeadlineEvent.SelectedValue = controller.DraftDeadlineEvent; comboBoxDeadlineEvent.SelectedItem = controller.DraftDeadlineEvent.ToString();
             var dDays = controller.DraftDeadlineDays;
             if (dDays < numericDeadlineDays.Minimum || dDays > numericDeadlineDays.Maximum)
                 dDays = (int)numericDeadlineDays.Minimum;
             numericDeadlineDays.Value = dDays;
 
-            comboBoxField.Items.AddRange(controller.AvailableFields.ToArray());
+            var fields = controller.AvailableFields
+                .Select(f => new { Key = f, Value = controller.GetFieldDefinition(f).DisplayName })
+                .ToList();
+
             comboBoxField.SelectedIndexChanged += comboBoxField_SelectedIndexChanged;
+            comboBoxField.DataSource = fields;
+            comboBoxField.DisplayMember = "Value";
+            comboBoxField.ValueMember = "Key";
             comboBoxField.SelectedIndex = 0;
-            ApplyFieldDefinition(comboBoxField.SelectedItem.ToString());
+
+            ApplyFieldDefinition(comboBoxField.SelectedValue.ToString());
 
             comboBoxGroupSelector.Items.Clear();
             for (int i = 0; i < controller.Groups.Count; i++)
@@ -47,7 +62,8 @@ namespace MigrationSystem22.View
 
         private void comboBoxField_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ApplyFieldDefinition(comboBoxField.SelectedItem.ToString());
+            var fieldKey = comboBoxField.SelectedValue.ToString();
+            ApplyFieldDefinition(fieldKey);
         }
 
         private void ApplyFieldDefinition(string fieldName)
@@ -76,15 +92,15 @@ namespace MigrationSystem22.View
 
         private void buttonAddCondition_Click(object sender, EventArgs e)
         {
-            var field = comboBoxField.SelectedItem.ToString();
-            var def = controller.GetFieldDefinition(field);
+            var fieldKey = comboBoxField.SelectedValue.ToString();
+            var def = controller.GetFieldDefinition(fieldKey);
             var op = comboBoxOperator.SelectedItem.ToString();
 
             string val = def.AllowedValues != null
                 ? comboBoxConditionValue.SelectedItem.ToString()
                 : textBoxConditionValue.Text.Trim();
 
-            controller.AddCondition(field, op, val);
+            controller.AddCondition(fieldKey, op, val);
             RefreshConditionList();
         }
 
@@ -116,19 +132,33 @@ namespace MigrationSystem22.View
         {
             var w = textBoxWhatToGet.Text.Trim();
             var ins = textBoxInstruction.Text.Trim();
+            bool hasConditions = controller.Groups.Any(g => g.Count > 0);
+
+            if (string.IsNullOrEmpty(w)
+                || string.IsNullOrEmpty(ins)
+                || !hasConditions)
+            {
+                MessageBox.Show(
+                    "Нельзя сохранять пустое правило. Нужно заполнить поля «Что нужно получить», «Инструкция» и добавить хотя бы одно условие.",
+                    "Ошибка валидации",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+
             controller.SetMetadata(w, ins);
 
-            if (!Enum.TryParse<ControlDateType>(
-                    comboBoxDeadlineEvent.SelectedItem.ToString(),
-                    out var ev))
+            if (comboBoxDeadlineEvent.SelectedValue is not ControlDateType ev)
             {
-                MessageBox.Show("Неверное событие отсчёта");
+                MessageBox.Show("Неверное событие отсчёта", "Ошибка",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             controller.SetDeadline(ev, (int)numericDeadlineDays.Value);
 
             controller.Save();
-            MessageBox.Show("Правило сохранено!");
+            MessageBox.Show("Правило сохранено!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Close();
         }
 
@@ -145,24 +175,27 @@ namespace MigrationSystem22.View
             }
 
             var groups = controller.Groups;
-            if (groups == null) return;
             for (int gi = 0; gi < groups.Count; gi++)
+            {
                 for (int ci = 0; ci < groups[gi].Count; ci++)
                 {
                     var c = groups[gi][ci];
                     var item = new ListViewItem($"Группа {gi + 1}")
-                    { Tag = Tuple.Create(gi, ci) };
-                    item.SubItems.Add(c.FieldName);
+                    {
+                        Tag = Tuple.Create(gi, ci)
+                    };
+
+                    var disp = controller.GetFieldDefinition(c.FieldName).DisplayName;
+                    item.SubItems.Add(disp);
                     item.SubItems.Add(c.Operator);
                     item.SubItems.Add(c.Value);
                     listViewConditions.Items.Add(item);
                 }
+            }
 
             listViewConditions.AutoResizeColumns(
                 ColumnHeaderAutoResizeStyle.HeaderSize
             );
         }
-
-        private void label6_Click(object sender, EventArgs e) { }
     }
 }

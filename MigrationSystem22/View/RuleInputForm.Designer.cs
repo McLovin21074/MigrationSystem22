@@ -2,30 +2,38 @@
 {
     partial class RuleInputForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        private Label label1;
+        private TextBox textBoxWhatToGet;
+        private Label label2;
+        private TextBox textBoxInstruction;
+        private Label label3;
+        private ComboBox comboBoxDeadlineEvent;
+        private Label label4;
+        private NumericUpDown numericDeadlineDays;
+        private Label label5;
+        private ComboBox comboBoxField;
+        private Label label6;
+        private ComboBox comboBoxOperator;
+        private Label label7;
+        private TextBox textBoxConditionValue;
+        private Button buttonAddCondition;
+        private ListView listViewConditions;
+        private Button buttonRemoveCondition;
+        private Button buttonSaveRule;
+        private Button buttonNewGroup;
+        private Label labelCurrentGroup;
+        private ComboBox comboBoxGroupSelector;
+        private ComboBox comboBoxConditionValue;
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
-            {
                 components.Dispose();
-            }
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             label1 = new Label();
@@ -42,6 +50,7 @@
             comboBoxOperator = new ComboBox();
             label7 = new Label();
             textBoxConditionValue = new TextBox();
+            comboBoxConditionValue = new ComboBox();
             buttonAddCondition = new Button();
             listViewConditions = new ListView();
             buttonRemoveCondition = new Button();
@@ -49,7 +58,6 @@
             buttonNewGroup = new Button();
             labelCurrentGroup = new Label();
             comboBoxGroupSelector = new ComboBox();
-            comboBoxConditionValue = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)numericDeadlineDays).BeginInit();
             SuspendLayout();
             // 
@@ -66,9 +74,8 @@
             // 
             textBoxWhatToGet.Location = new Point(34, 40);
             textBoxWhatToGet.Name = "textBoxWhatToGet";
-            textBoxWhatToGet.Size = new Size(125, 27);
+            textBoxWhatToGet.Size = new Size(306, 27);
             textBoxWhatToGet.TabIndex = 1;
-            textBoxWhatToGet.Text = "Получить";
             // 
             // label2
             // 
@@ -82,14 +89,15 @@
             // textBoxInstruction
             // 
             textBoxInstruction.Location = new Point(35, 134);
+            textBoxInstruction.Multiline = true;
             textBoxInstruction.Name = "textBoxInstruction";
-            textBoxInstruction.Size = new Size(31, 27);
+            textBoxInstruction.Size = new Size(274, 131);
             textBoxInstruction.TabIndex = 3;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(29, 199);
+            label3.Location = new Point(23, 287);
             label3.Name = "label3";
             label3.Size = new Size(118, 20);
             label3.TabIndex = 4;
@@ -98,7 +106,7 @@
             // comboBoxDeadlineEvent
             // 
             comboBoxDeadlineEvent.FormattingEnabled = true;
-            comboBoxDeadlineEvent.Location = new Point(35, 246);
+            comboBoxDeadlineEvent.Location = new Point(29, 334);
             comboBoxDeadlineEvent.Name = "comboBoxDeadlineEvent";
             comboBoxDeadlineEvent.Size = new Size(151, 28);
             comboBoxDeadlineEvent.TabIndex = 5;
@@ -106,7 +114,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(35, 309);
+            label4.Location = new Point(29, 397);
             label4.Name = "label4";
             label4.Size = new Size(91, 20);
             label4.TabIndex = 6;
@@ -114,8 +122,8 @@
             // 
             // numericDeadlineDays
             // 
-            numericDeadlineDays.Location = new Point(36, 344);
-            numericDeadlineDays.Maximum = new decimal(new int[] { 365, 0, 0, 0 });
+            numericDeadlineDays.Location = new Point(30, 432);
+            numericDeadlineDays.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
             numericDeadlineDays.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numericDeadlineDays.Name = "numericDeadlineDays";
             numericDeadlineDays.Size = new Size(150, 27);
@@ -125,7 +133,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(522, 24);
+            label5.Location = new Point(543, 30);
             label5.Name = "label5";
             label5.Size = new Size(45, 20);
             label5.TabIndex = 8;
@@ -134,9 +142,9 @@
             // comboBoxField
             // 
             comboBoxField.FormattingEnabled = true;
-            comboBoxField.Location = new Point(524, 64);
+            comboBoxField.Location = new Point(448, 64);
             comboBoxField.Name = "comboBoxField";
-            comboBoxField.Size = new Size(151, 28);
+            comboBoxField.Size = new Size(242, 28);
             comboBoxField.TabIndex = 9;
             // 
             // label6
@@ -147,7 +155,6 @@
             label6.Size = new Size(78, 20);
             label6.TabIndex = 10;
             label6.Text = "Оператор";
-            label6.Click += label6_Click;
             // 
             // comboBoxOperator
             // 
@@ -168,10 +175,19 @@
             // 
             // textBoxConditionValue
             // 
-            textBoxConditionValue.Location = new Point(925, 71);
+            textBoxConditionValue.Location = new Point(917, 66);
             textBoxConditionValue.Name = "textBoxConditionValue";
-            textBoxConditionValue.Size = new Size(125, 27);
+            textBoxConditionValue.Size = new Size(147, 27);
             textBoxConditionValue.TabIndex = 13;
+            // 
+            // comboBoxConditionValue
+            // 
+            comboBoxConditionValue.FormattingEnabled = true;
+            comboBoxConditionValue.Location = new Point(913, 63);
+            comboBoxConditionValue.Name = "comboBoxConditionValue";
+            comboBoxConditionValue.Size = new Size(151, 28);
+            comboBoxConditionValue.TabIndex = 21;
+            comboBoxConditionValue.Visible = false;
             // 
             // buttonAddCondition
             // 
@@ -185,17 +201,17 @@
             // 
             // listViewConditions
             // 
-            listViewConditions.Location = new Point(590, 232);
+            listViewConditions.Location = new Point(466, 232);
             listViewConditions.Name = "listViewConditions";
-            listViewConditions.Size = new Size(151, 121);
+            listViewConditions.Size = new Size(414, 121);
             listViewConditions.TabIndex = 15;
             listViewConditions.UseCompatibleStateImageBehavior = false;
             // 
             // buttonRemoveCondition
             // 
-            buttonRemoveCondition.Location = new Point(925, 324);
+            buttonRemoveCondition.Location = new Point(729, 118);
             buttonRemoveCondition.Name = "buttonRemoveCondition";
-            buttonRemoveCondition.Size = new Size(94, 29);
+            buttonRemoveCondition.Size = new Size(137, 29);
             buttonRemoveCondition.TabIndex = 16;
             buttonRemoveCondition.Text = "Удалить условие";
             buttonRemoveCondition.UseVisualStyleBackColor = true;
@@ -203,9 +219,9 @@
             // 
             // buttonSaveRule
             // 
-            buttonSaveRule.Location = new Point(1206, 386);
+            buttonSaveRule.Location = new Point(930, 397);
             buttonSaveRule.Name = "buttonSaveRule";
-            buttonSaveRule.Size = new Size(94, 29);
+            buttonSaveRule.Size = new Size(130, 48);
             buttonSaveRule.TabIndex = 17;
             buttonSaveRule.Text = "Сохранить правило";
             buttonSaveRule.UseVisualStyleBackColor = true;
@@ -213,7 +229,7 @@
             // 
             // buttonNewGroup
             // 
-            buttonNewGroup.Location = new Point(906, 178);
+            buttonNewGroup.Location = new Point(930, 266);
             buttonNewGroup.Name = "buttonNewGroup";
             buttonNewGroup.Size = new Size(113, 62);
             buttonNewGroup.TabIndex = 18;
@@ -238,22 +254,12 @@
             comboBoxGroupSelector.Size = new Size(151, 28);
             comboBoxGroupSelector.TabIndex = 20;
             comboBoxGroupSelector.Text = "Выберите группу";
-            comboBoxGroupSelector.SelectedIndexChanged += comboBoxGroupSelector_SelectedIndexChanged;
-            // 
-            // comboBoxConditionValue
-            // 
-            comboBoxConditionValue.FormattingEnabled = true;
-            comboBoxConditionValue.Location = new Point(925, 71);
-            comboBoxConditionValue.Name = "comboBoxConditionValue";
-            comboBoxConditionValue.Size = new Size(151, 28);
-            comboBoxConditionValue.TabIndex = 21;
-            comboBoxConditionValue.Visible = false;
             // 
             // RuleInputForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1353, 492);
+            ClientSize = new Size(1194, 492);
             Controls.Add(comboBoxConditionValue);
             Controls.Add(comboBoxGroupSelector);
             Controls.Add(labelCurrentGroup);
@@ -282,30 +288,5 @@
             ResumeLayout(false);
             PerformLayout();
         }
-
-        #endregion
-
-        private Label label1;
-        private TextBox textBoxWhatToGet;
-        private Label label2;
-        private TextBox textBoxInstruction;
-        private Label label3;
-        private ComboBox comboBoxDeadlineEvent;
-        private Label label4;
-        private NumericUpDown numericDeadlineDays;
-        private Label label5;
-        private ComboBox comboBoxField;
-        private Label label6;
-        private ComboBox comboBoxOperator;
-        private Label label7;
-        private TextBox textBoxConditionValue;
-        private Button buttonAddCondition;
-        private ListView listViewConditions;
-        private Button buttonRemoveCondition;
-        private Button buttonSaveRule;
-        private Button buttonNewGroup;
-        private Label labelCurrentGroup;
-        private ComboBox comboBoxGroupSelector;
-        private ComboBox comboBoxConditionValue;
     }
 }

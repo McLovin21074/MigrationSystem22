@@ -8,6 +8,8 @@ namespace MigrationSystem22.Data
         public DbSet<RuleEntity> Rules { get; set; }
         public DbSet<ConditionGroupEntity> ConditionGroups { get; set; }
         public DbSet<RuleConditionEntity> RuleConditions { get; set; }
+        public DbSet<AccountEntity> Accounts { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
@@ -26,6 +28,7 @@ namespace MigrationSystem22.Data
                 entity.ToTable("users");
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.FullName).HasColumnName("full_name");
                 entity.Property(e => e.EntryDate).HasColumnName("entry_date");
                 entity.Property(e => e.RegistrationDate).HasColumnName("registration_date");
                 entity.Property(e => e.PatentIssueDate).HasColumnName("patent_issue_date");
@@ -36,6 +39,22 @@ namespace MigrationSystem22.Data
                 entity.Property(e => e.HasPatent).HasColumnName("has_patent");
                 entity.Property(e => e.HasWorkPermit).HasColumnName("has_work_permit");
                 entity.Property(e => e.EntryGoal).HasColumnName("entry_goal");
+            });
+
+            modelBuilder.Entity<AccountEntity>(entity =>
+            {
+                entity.ToTable("accounts");
+                entity.HasKey(a => a.AccountId);
+                entity.Property(a => a.AccountId).HasColumnName("account_id");
+                entity.Property(a => a.UserId).HasColumnName("user_id");
+                entity.Property(a => a.Username).HasColumnName("username");
+                entity.Property(a => a.PasswordHash).HasColumnName("password_hash");
+                entity.Property(a => a.Role).HasColumnName("role");
+
+                entity.HasOne(a => a.User)
+                      .WithMany()
+                      .HasForeignKey(a => a.UserId)
+                      .OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<RuleEntity>(entity =>
